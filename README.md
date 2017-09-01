@@ -2,7 +2,7 @@
 
 This repository contains fixed and modernized files for the Java implementation of ABAC and creddy tests.
 
-The new version is labeled 0.1.10.
+The new version is labeled 0.2.0.
 
 These include:
 

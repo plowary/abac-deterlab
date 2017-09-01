@@ -1,0 +1,11 @@
+To set up the files used in the Java regression tests, run ./setup_certs.sh
+If cleaning the directory, leave the following files intact:
+- create_attr_cert.jar
+- e0-check-geni_uns.xml
+- e0-check-geni11_uns.xml
+- not_ss_uns.xml
+- openssl.cnf
+- priv_uns.xml
+- README
+- setup_certs.sh
+- update_xml.py

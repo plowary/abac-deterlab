@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+. ${TESTDIR}/test_util.sh
+
+keystore=`pwd`
+pID=`$eloc/creddy --keyid --cert ${keystore}/IceCream_ID.pem`
+cID=`$eloc/creddy --keyid --cert ${keystore}/Chocolate_ID.pem`
+
+role="${pID}.delicious"
+principal="${cID}"
+
+echo "=========================================="
+echo "=========================================="
+valgrind -v --leak-check=full ./leak_attr IceCream_ID.pem  IceCream_private.pem IceCream_attr.xml Chocolate_ID.pem
+echo "=========================================="
+echo "=========================================="
+valgrind -v --leak-check=full ./leak_prover "$keystore" "$role" "$principal"
+echo "=========================================="
+echo "=========================================="
+
+

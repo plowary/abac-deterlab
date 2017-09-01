@@ -1,0 +1,11 @@
+Partial proof returns entire graph
+    When a query fails libabac returns a partial proof, which is to say
+    a set of credentials it knows about that it thinks are relevant to
+    the proof.
+
+    Currently, when a query fails libabac returns all the credentials it
+    knows about.
+
+    In a proper implementation, the set of credentials returned will
+    only be those that are reachable from the principal and those that
+    have a path to the role in question.

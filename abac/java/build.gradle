@@ -1,0 +1,124 @@
+/*
+Project file for Gradle to build Java ABAC library and test cases.
+Requires Jung and BouncyCastle.
+*/
+
+apply plugin: 'java'
+
+def src_dir = "."
+def lib_dir = "jar"
+def build_dir = "build"
+def classes_dir = build_dir + "/classes"
+def example_dir = src_dir + "/example"
+def regression_dir = src_dir + "/regression"
+def jar_dir = build_dir + "/jar"
+def doc_dir = "./doc"
+def devdoc_dir = "./dev-doc"
+def main_class = "GraphTest"
+def dump_class = "Dumper"
+def read_class = "Reader"
+def write_class = "Writer"
+def regression_class = "Regression"
+def example_class = "CreateExample"
+def version = "0.2.0"
+
+// Define a synonym here if you want a shortcut to run multiple targets
+def buildAliases = [
+        'all': ['clean_dirs', 'compile', 'create_jar', 'doc', 'dev_doc']
+]
+def expandedTaskList = []
+gradle.startParameter.taskNames.each {
+    expandedTaskList << (buildAliases[it] ? buildAliases[it] : it)
+}
+gradle.startParameter.taskNames = expandedTaskList.flatten()
+
+configurations {
+    compile
+}
+
+dependencies {
+    compile fileTree(dir: lib_dir, include: '*.jar')
+}
+
+jar {
+    manifest {
+        attributes "Class-Path": lib_dir
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    exclude ('META-INF/*')
+}
+
+task all()
+
+
+task clean_dirs(type: Delete) {
+    delete build_dir, doc_dir, devdoc_dir, example_dir, "scratch"
+}
+
+task compile(type: JavaCompile) {
+    options.fork = true
+    source = fileTree(dir: src_dir, include: '**/*.java')
+    destinationDir = file(classes_dir)
+    sourceCompatibility = '1.8'
+    targetCompatibility = '1.8'
+    options.compilerArgs = ["-Xlint:deprecation"]
+    classpath = fileTree(dir: lib_dir)
+}
+
+task create_jar(type: Jar, dependsOn: compile) {
+    description "Make a JAR archive"
+    manifest.from jar.manifest
+    from(classes_dir) {
+        include '**'
+        exclude '**/GraphTest.class', '**/Dumper.class', 'net/deterlab/abac/regression/*', '**/create_attr_cert.java'
+    }
+    destinationDir = file(jar_dir)
+    archiveName = "jabac-"+version+".jar"
+    with jar
+}
+
+task doc(type: Javadoc, dependsOn: compile) {
+    description "Generate API documentation"
+    source = fileTree(dir: src_dir)
+    destinationDir = file(doc_dir)
+    classpath = fileTree(lib_dir)
+    options.memberLevel = JavadocMemberLevel.PUBLIC
+    options.noQualifiers 'java.lang:java.io:java.util:java.security:java.security.cert'
+    include "**/*.java"
+    exclude "net.deterlab/abac.regression"
+}
+
+task dev_doc(type: Javadoc, dependsOn: compile) {
+    description "Generate developer API documentation"
+    source = fileTree(dir: src_dir)
+    destinationDir = file(doc_dir)
+    classpath = fileTree(lib_dir)
+    options.memberLevel = JavadocMemberLevel.PRIVATE
+    options.noQualifiers 'java.lang:java.io:java.util:java.security:java.security.cert'
+    include "**/*.java"
+    exclude "net.deterlab/abac.regression"
+}
+
+task regression_test(type: JavaExec, dependsOn: compile) {
+    description "Run the regression test"
+    println "Run setup_certs.sh in regression dir before running gradle test"
+    delete "scratch"
+    project.file('scratch').mkdirs()
+    args "regression", "scratch"
+    classpath(classes_dir + ":" + lib_dir + "/*")
+    main = regression_class
+}
+
+// Map the default tasks listed by "gradle tasks" to the custom tasks defined here
+assemble.dependsOn compile
+build.dependsOn regression_test
+buildDependents.dependsOn regression_test
+buildNeeded.dependsOn regression_test
+classes.dependsOn compile
+clean.dependsOn clean_dirs
+jar.dependsOn create_jar
+javadoc.dependsOn dev_doc
+check.dependsOn regression_test
+test.dependsOn regression_test

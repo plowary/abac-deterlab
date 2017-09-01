@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<signed-credential>
+    <credential xml:id="ref0">
+	<type>abac</type>
+	<serial/>
+	<owner_gid/>
+	<target_gid/>
+	<uuid/>
+	<expires>2033-08-02T00:59:54Z</expires>
+	<abac>
+	    <rt0>
+		<version>1.1</version>
+		<head>
+   <ABACprincipal><keyid>b4b3cb2692d066aba929ff7100caaa2026bfc2c1</keyid></ABACprincipal>
+   <role>test_attr</role>
+</head>
+<tail>
+   <ABACprincipal><keyid>d9b5e24ea26d35680df74ad0069977488ff3eec2</keyid></ABACprincipal>
+</tail>
+
+	    </rt0>
+	</abac>
+    </credential>
+    <signatures>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+	    <SignedInfo>
+		<CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+		<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+		<Reference URI="#ref0">
+		    <Transforms>
+			<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+		    </Transforms>
+		    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+		    <DigestValue>RgAYVvDCeh5c2/uYg13Ni3nn0kc=</DigestValue>
+		</Reference>
+	    </SignedInfo>
+	    <SignatureValue>boVx3juzHziicH875bMT87y0jc7liKyK4047XMNcVAZfhkYkAPrYczsnEmT7Npt6
+LjFVRklzVtf3GjMS3KwuZKSiBl9owRT7mRFDJ6Xa++gLTlI0nzihR6hQAoWq7jfH
+RdjvISw5dK5vGASsNg0LJMZgJcCShB5tHZbz6mp8Yjs=</SignatureValue>
+	    <KeyInfo>
+	      <KeyValue>
+<RSAKeyValue>
+<Modulus>
+/JnS32SJUKrzw+oXv/I6dfCMxtaGxBFebgXJfJwHQ+xkrcUXIeur6Jdxd/quS7zB
+XqF1R2Q7abtTrQ1HsBXQ6adkmvAbYHegLQKgQ7ZdFOajnGTNnOtURqjJbkSj8OS6
+HSn2m1EHkThT9dwM5Zs2YJXd5BQT0yaak8A6U9La0dM=
+</Modulus>
+<Exponent>
+AQAB
+</Exponent>
+</RSAKeyValue>
+</KeyValue>
+		<X509Data>
+		    
+		    
+		    
+		<X509Certificate>MIIEFDCCA32gAwIBAgIBCTANBgkqhkiG9w0BAQUFADCCARQxCzAJBgNVBAYTAlVT
+MQ0wCwYDVQQIEwRVdGFoMSUwIwYDVQQHExxTYWx0IExha2UgQ2l0eSBWaXJ0dWFs
+IFdvcmxkMSAwHgYDVQQKExdVdGFoIE5ldHdvcmsgRWxhYkluRWxhYjEeMBwGA1UE
+CxMVQ2VydGlmaWNhdGUgQXV0aG9yaXR5MT0wOwYDVQQDEzRteWJvc3MudGVzdGVu
+dmlyb25tZW50LnR1dG9yaWFsMjAxMS5pc2kuZGV0ZXJsYWIubmV0MU4wTAYJKoZI
+hvcNAQkBFj90ZXN0YmVkLW9wc0BteW9wcy50ZXN0ZW52aXJvbm1lbnQudHV0b3Jp
+YWwyMDExLmlzaS5kZXRlcmxhYi5uZXQwHhcNMTMwNjIyMDUwMzM5WhcNMTYwMzE4
+MDUwMzM5WjCBxTELMAkGA1UEBhMCVVMxDTALBgNVBAgTBFV0YWgxIDAeBgNVBAoT
+F1V0YWggTmV0d29yayBFbGFiSW5FbGFiMRIwEAYDVQQLEwlzc2x4bWxycGMxLTAr
+BgNVBAMTJDcwZjRkYjVjLWM3ZjUtMTFkYy1hMjA0LTAwMDQyM2MyOGU3NjFCMEAG
+CSqGSIb3DQEJARYzZmFiZXJAdGVzdGVudmlyb25tZW50LnR1dG9yaWFsMjAxMS5p
+c2kuZGV0ZXJsYWIubmV0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQD8mdLf
+ZIlQqvPD6he/8jp18IzG1obEEV5uBcl8nAdD7GStxRch66vol3F3+q5LvMFeoXVH
+ZDtpu1OtDUewFdDpp2Sa8Btgd6AtAqBDtl0U5qOcZM2c61RGqMluRKPw5LodKfab
+UQeROFP13AzlmzZgld3kFBPTJpqTwDpT0trR0wIDAQABo4HBMIG+MA8GA1UdEwEB
+/wQFMAMBAf8wHQYDVR0OBBYEFLSzyyaS0GarqSn/cQDKqiAmv8LBMIGLBgNVHREE
+gYMwgYCGSXVybjpwdWJsaWNpZDpJRE4rdGVzdGVudmlyb25tZW50LnR1dG9yaWFs
+MjAxMS5pc2kuZGV0ZXJsYWIubmV0K3VzZXIrZmFiZXKBM2ZhYmVyQHRlc3RlbnZp
+cm9ubWVudC50dXRvcmlhbDIwMTEuaXNpLmRldGVybGFiLm5ldDANBgkqhkiG9w0B
+AQUFAAOBgQAwWu8X1c3lYmHy+6rUbKcaZw9+coMAl4hbK1ljgJaNfk/y25IHMOsE
+O/oHQKDDLtoF4+ITRNt1E8QVuiQD38vkdnes28coy4jZ/fAnS7KNvYR/zFmMGfgb
+ZdQg6wVbB6P4mdncBb8frRvZ+SS0fZrJi1hffwl/aY92hmHPyCHyBw==</X509Certificate>
+<X509SubjectName>emailAddress=faber@testenvironment.tutorial2011.isi.deterlab.net,CN=70f4db5c-c7f5-11dc-a204-000423c28e76,OU=sslxmlrpc,O=Utah Network ElabInElab,ST=Utah,C=US</X509SubjectName>
+<X509IssuerSerial>
+<X509IssuerName>emailAddress=testbed-ops@myops.testenvironment.tutorial2011.isi.deterlab.net,CN=myboss.testenvironment.tutorial2011.isi.deterlab.net,OU=Certificate Authority,O=Utah Network ElabInElab,L=Salt Lake City Virtual World,ST=Utah,C=US</X509IssuerName>
+<X509SerialNumber>9</X509SerialNumber>
+</X509IssuerSerial>
+</X509Data>
+	    </KeyInfo>
+	</Signature>
+    </signatures>
+</signed-credential>

@@ -1,0 +1,39 @@
+#
+# This example demonstrates intersections.  An intersection is a logical-AND of
+# roles or osets.  An intersection succeeds if the principal is in the
+# intersection of the sets defined by the roles.
+#
+# The policy set by Acme is that a character must both a preferred customer and
+# a WarnerBrothers character to buy rockets.  Each of those attributes is
+# specified by a role.
+#
+# This example defines 4 principals, Acme, WarnerBrothers, Coyote and Batman.
+# Credential 1 defines the policy requiring both roles to get the buy_rockets
+# role.  Credential 2 gives the Coyote a preferred_customer role.  Credential 3
+# gives Batman the preferred_customer role and Credential 4 recognizes the
+# Coyote as a Warner Brothers character.
+#
+#In order to buy rockets from Acme, you must be BOTH a preferred customer
+#AND a WarnerBros character. In this example, the following query will be
+#successful:
+#
+#    Acme.buy_rockets <-?- Coyote
+#
+#The following query will fail (because Batman does not have the
+#attribute WarnerBros.character):
+#
+#    Acme.buy_rockets <-?- Batman
+# 
+# acme_rockets_intersection_rt0
+
+# Credential 1
+#[keyid:Acme].role:buy_rockets <- [keyid:Acme].role:preferred_customer 
+                                    & [keyid:WarnerBros].role:charater
+# Credential 2
+# [keyid:Acme].role:preferred_customer <- [keyid:Coyote]
+
+# Credential 3
+#[keyid:Acme].role:preferred_customer <- [keyid:Batman]
+
+# Credential 4
+#[keyid:WarnerBros].role:character <- [keyid:Coyote]

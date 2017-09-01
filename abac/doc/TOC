@@ -1,0 +1,12 @@
+design              the design of libabac
+API                 external API
+keystore            keystore format
+role_names          details about role names
+
+usage_scenario      an example usage scenario
+
+INSTALL             installation instructions
+dependencies        software dependencies
+java_install        Java installation instructions
+
+for creddy doc, see creddy(1) in the man pages

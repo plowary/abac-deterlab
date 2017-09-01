@@ -1,0 +1,26 @@
+
+This directory serves as a regression testing and performance testing
+platform for libabac.  It contains many actual valid RT0
+examples in C/python/perl. It also contain examples of Creddy in
+action.
+
+creddy_prover_tests : various RT examples using Creddy and abac_prover,
+                      a C implemenation of an ABAC prover
+python_tests: same RT examples as in creddy_prover_tests but in python scripts
+              using libabac ABAC
+example_scripts: small examples scripts in perl/python/C, wiki contains examples
+              used on libabac's wiki page
+scaling_tests: performance testing
+attr_tests: testing different types of attribute xml format
+creddy_tests : a comphrensive testing of creddy
+
+
+To run,
+
+   make tests
+
+if running on BSD,
+
+   make -i tests
+
+

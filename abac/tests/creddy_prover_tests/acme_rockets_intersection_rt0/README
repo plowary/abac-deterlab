@@ -1,0 +1,69 @@
+#!/usr/bin/env sh
+#
+# This example demonstrates intersections.  An intersection is a logical and of
+# roles or osets.  An intersection succeeds if the principal is in the
+# intersection of the sets defined by the roles.
+#
+# The policy set by Acme is that a character must both a preferred customer and
+# a WarnerBrothers character to buy rockets.  Each of those attributes is
+# specified by a role.
+#
+# This example defines 4 principals, Acme, WarnerBrothers, Coyote and Batman.
+# Credential 1 defines the policy requiring both roles to get the buy_rockets
+# role.  Credential 2 gives the Coyote a preferred_customer role.  Credential 3
+# gives Batman the preferred_customer role and Credential 4 recognizes the
+# Coyote as a Warner Brothers character.
+#
+#In order to buy rockets from Acme, you must be BOTH a preferred customer
+#AND a WarnerBros character. In this example, the following query will be
+#successful:
+#
+#    Acme.buy_rockets <-?- Coyote
+#
+#The following query will fail (because Batman does not have the
+#attribute WarnerBros.character):
+#
+#    Acme.buy_rockets <-?- Batman
+#
+#Acme.buy_rockets <- Acme.preferred_customer & WarnerBros.character
+#Acme.preferred_customer <- Coyote
+#Acme.preferred_customer <- Batman
+#WarnerBros.character <- Coyote
+#
+
+rm -rf *.xml *.pem
+
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+. ${TESTDIR}/test_util.sh
+
+$eloc/creddy --generate --cn Acme
+
+$eloc/creddy --generate --cn WarnerBros
+
+$eloc/creddy --generate --cn Coyote
+
+$eloc/creddy --generate --cn Batman
+
+$eloc/creddy --attribute \
+       --issuer Acme_ID.pem --key Acme_private.pem --role buy_rockets \
+       --subject-cert Acme_ID.pem --subject-role preferred_customer \
+       --subject-cert WarnerBros_ID.pem --subject-role character \
+       --out Acme_buy_rockets__Acme_preferred_customer_and_WarnerBros_character_attr.xml
+
+$eloc/creddy --attribute \
+       --issuer Acme_ID.pem --key Acme_private.pem --role preferred_customer \
+       --subject-cert Coyote_ID.pem \
+       --out Acme_preferred_customer__Coyote_attr.xml
+
+$eloc/creddy --attribute \
+       --issuer Acme_ID.pem --key Acme_private.pem --role preferred_customer \
+       --subject-cert Batman_ID.pem \
+       --out Acme_preferred_customer__Batman_attr.xml
+
+$eloc/creddy --attribute \
+       --issuer WarnerBros_ID.pem --key WarnerBros_private.pem --role character \
+       --subject-cert Coyote_ID.pem \
+       --out WarnerBros_character__Coyote_attr.xml
+

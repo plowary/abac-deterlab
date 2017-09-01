@@ -1,0 +1,68 @@
+#!/usr/bin/env sh
+#
+#
+#Acme runs a testbed. They've delegated the authority to create
+#experiments to all their partners. The Globotron company is one such
+#partner.
+#
+#    Acme.experiment_create <- Acme.partner.experiment_create
+#    Acme.partner <- Globotron
+#
+#Globotron has delegated the authority to anyone an admin thinks is a
+#'power user'.
+#
+#    Globotron.experiment_create <- Globotron.admin.power_user
+#
+#Alice is an admin, and her friend Bob is a power user:
+#
+#    Globotron.admin <- Alice
+#    Alice.power_user <- Bob
+#
+#From these credentials, it is possible to construct a proof graph
+#showing that Acme.experiment_create <- Bob.
+#
+#Note that there is a one-to-one correspondence with each credential
+#above and the attribute certificates below.
+#
+
+rm -rf *.pem *.xml
+
+. ${TESTDIR}/test_util.sh
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+
+$eloc/creddy --generate --cn Acme
+
+$eloc/creddy --generate --cn Globotron
+
+$eloc/creddy --generate --cn Alice
+
+$eloc/creddy --generate --cn Bob
+
+$eloc/creddy --attribute \
+       --issuer Acme_ID.pem --key Acme_private.pem --role experiment_create \
+       --subject-cert Acme_ID.pem --subject-role partner.experiment_create \
+       --out Acme_experiment_create__Acme_partner_experiment_create_attr.xml
+
+$eloc/creddy --attribute \
+       --issuer Acme_ID.pem --key Acme_private.pem --role partner \
+       --subject-cert Globotron_ID.pem \
+       --out Acme_partner__Globotron_attr.xml 
+
+$eloc/creddy --attribute \
+       --issuer Globotron_ID.pem --key Globotron_private.pem --role experiment_create \
+       --subject-cert Globotron_ID.pem --subject-role admin.power_user \
+       --out Globotron_experiment_create__Globotron_admin_power_user_attr.xml
+
+$eloc/creddy --attribute \
+       --issuer Globotron_ID.pem --key Globotron_private.pem --role admin \
+       --subject-cert Alice_ID.pem \
+       --out Globotron_admin__Alice_attr.xml
+
+$eloc/creddy --attribute \
+       --issuer Alice_ID.pem --key Alice_private.pem --role power_user \
+       --subject-cert Bob_ID.pem \
+       --out Alice_admin__Bob_attr.xml
+
+

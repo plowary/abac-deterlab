@@ -1,0 +1,32 @@
+# As root or via sudo
+
+# get up to date
+yum update -y
+
+# Some convenience packages
+yum install -y emacs-nox wget
+
+# RPM related packages
+yum install -y rpm-build rpmdevtools rpmlint
+yum groupinstall -y "Development Tools"
+
+# Reboot so the new changes take hold
+reboot
+
+# ———
+# As a regular user from here on
+
+rpmdev-setuptree
+
+wget http://abac.deterlab.net/src/abac-0.1.9.tar.gz #update to 0.2.0
+cp abac-0.1.9.tar.gz rpmbuild/SOURCES
+# scp abac.spec to VM
+cp abac.spec rpmbuild/SPECS
+
+cd rpmbuild/SPECS
+
+# Install the build dependencies
+sudo yum-builddep -y abac.spec
+
+# build the RPM, ignoring certain rpath errors
+QA_RPATHS=$[ 0x0001|0x0010 ] rpmbuild -ba abac.spec

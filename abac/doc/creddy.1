@@ -1,0 +1,148 @@
+.TH creddy 1 "July 2013" "ABAC 0.2.0"
+
+.SH NAME
+creddy \- ABAC X.509 identity and XML attribute certificate manager (for cool kids)
+
+.SH SYNOPSIS
+
+.B creddy [ --<mode> ] --help
+
+.SH DESCRIPTION
+
+creddy is an awesome and wonderful ABAC credential management tool. It
+creates, verifies, and otherwise frobnicates X.509 identity and
+XML attribute certificates. The output of the tool is suitable for use with
+ABAC. Additionally, the self-signed X.509 identity certs (with
+associated private keys) can be used with OpenSSL.
+
+.SH OPTIONS
+
+.SS --generate
+Generate an X.509 identity cert and private key pair. The certificate is saved in ${cn}_id.pem and the private key is saved in ${cn}_private.pem.
+.P
+Note that private key generation is slow and uses a lot of entropy. You can generate entropy by moving your mouse a lot or running large find commands on your local file systems.
+
+.TP
+.B --cn
+common name used on certificate, provided as a convenience and ignored by ABAC
+
+.TP
+.B --validity
+optional certificate validity. This argument takes a time period followed by an optional suffix of s m h d y (defaults to d if omitted). The default is 1080 days.
+
+.TP
+.B --out
+optional output directory. Must exist before invoking the command.
+
+.SS --verify
+verify the signature on a self-signed X.509 identity cert or an X.509 attribute cert
+
+.TP
+.B --cert
+self-signed X.509 identity cert
+
+.TP
+.B --attrcert
+optional XML attribute cert. If omitted the self-signature of the ID cert is checked
+
+.SS --keyid
+extract the subjectKeyIdentifier (SHA1 hash) from an X.509 identity cert
+
+.TP
+.B --cert
+X.509 identity cert
+
+.SS --attribute
+generate a XML attribute cert representing an ABAC credential
+
+An attribute cert has one or more subjects. A single subject may be defined without a role. Otherwise, subjects are defined by a pair of a --subject-{cert,id} and --subject-role. Providing multiple subjects creates an intersection certificate.
+
+.TP
+.B --issuer
+X.509 identity cert issuing the credential
+
+.TP
+.B --key
+private key associated with issuer cert
+
+.TP
+.B --role
+role in issuer's local attribute space
+
+.TP
+.B --subject-cert
+X.509 identity cert representing the principal to which the role is being issued. This fulfills the same purpose as --subject-id and should only be used once per subject.
+
+.TP
+.B --subject-id
+public key identifier (SHA1 hash) of the principal to which the role is being issued. This fulfills the same purpose as --subject-cert and should only be used once per subject.
+
+.TP
+.B --subject-role
+optional role in subject's local attribute space. If the issuer is A, role is r1, subject is B, and subject-role is r2, the attribute issued will be A.r1 <- B.r2.
+
+.TP
+.B --validity
+optional certificate validity. This argument takes a time period followed by an optional suffix of s m h d y (defaults to d if omitted). The default is 365 days.
+
+.TP
+.B --out
+where to save the XML attribute cert. In order to interoperate with the rest of ABAC, this name should end in _attr.xml.
+
+
+.SS --roles
+Extract the roles from an XML attribute cert
+
+.TP
+.B --cert
+XML attribute cert containing ABAC roles
+
+.SS --display
+Displays metadata from an X.509 identity or XML attribute cert
+
+.TP
+.B --show=[issuer,..,all]
+comma-separated list of:
+
+    issuer      DN of issuer
+    subject     DN of subject
+    validity    validity period
+    roles       attribute cert roles (fails silently on ID certs)
+    all         all of the above
+
+.TP
+.B --cert
+X.509 identity or XML attribute cert
+
+.SS --version
+display ABAC/creddy version
+
+.SH EXAMPLES
+
+.TP
+Generate ID cert and private key pairs:
+
+.B creddy --generate --cn Alice
+.br
+.B creddy --generate --cn Bob
+
+.TP
+Issue the credential Alice.friend <- Bob
+
+creddy --attribute \\
+       --issuer Alice_ID.pem --key Alice_private.pem \\
+       --role friend --subject-cert Bob_ID.pem \\
+       --out Alice_friend__Bob_attr.der
+
+.SH AUTHOR
+
+Written by Mike Ryan <mikeryan@ISI.EDU>
+Edited by Mei-Hui Su <mei@ISI.EDU>
+
+.SH BUGS
+
+None yet. Report to http://abac.deterlab.net/
+
+.SH COPYRIGHT
+
+Copyright (c) 2010-2013 USC/ISI. Released under MIT license. See COPYING included with source for details.

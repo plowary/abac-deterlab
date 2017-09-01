@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+. ${TESTDIR}/test_util.sh
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+keyloc=`pwd`
+
+ice=`$eloc/creddy --keyid --cert $keyloc/IceCream_ID.pem`
+chocolate_prin=`$eloc/creddy --keyid --cert $keyloc/Chocolate_ID.pem`
+
+delicious="$ice.delicious"
+
+echo "===good============ IceCream.delicious <- Chocolate"
+runTest creddy_prover_test/ice_cream_rt0 test1 \
+  "$ploc/abac_prover  --keystore $keyloc --role $delicious --principal $chocolate_prin" \
+  0 \
+  "very basic simple call"
+
+rm -rf IceCream*.pem
+echo "===good(no issuer)============ IceCream.delicious <- Chocolate"
+runTest creddy_prover_test/ice_cream_rt0 test2 \
+  "$ploc/abac_prover  --keystore $keyloc --role $delicious --principal $chocolate_prin" \
+  0 \
+  "basic simple call without the issuer's principal id in local keystore"
+
+
+rm -rf Chocolate*.pem
+echo "===good(no issuer & no principal)============ IceCream.delicious <- Chocolate"
+runTest creddy_prover_test/ice_cream_rt0 test1 \
+  "$ploc/abac_prover  --keystore $keyloc --role $delicious --principal $chocolate_prin" \
+  0 \
+  "basic simple call without the issuer's principal id nor principal id in local keystore"
+

@@ -1,0 +1,53 @@
+#!/bin/sh 
+
+SET=$1
+filename=${SET}_orig
+if [ ! -e $filename ] ; then
+    exit
+fi
+
+## generate the plot script
+make_script() {
+cat <<FIN > $DATA.p
+set title "$TITLE"
+set terminal jpeg medium size 640,480
+set output "$DATA.jpeg"
+set   autoscale    
+unset log
+unset label                            
+set xtic auto                         
+set ytic auto                          
+set xr [0:*]
+set yr [0:*]
+set xlabel "Number of Credentials"
+set ylabel "$TYPE time ($TIME)"
+plot '$DATA.dat' using $X:$Y notitle with linespoints
+FIN
+}
+
+X=1
+Y=2
+### making loading script
+TYPE='Loading'
+TITLE='Credential Loading Time'
+DATA=${SET}_load
+TIME='msec'
+make_script
+gnuplot ${SET}_load.p
+
+### making average good query script
+TYPE='Successful Query'
+TITLE='Average Successful Query Time'
+DATA=${SET}_mgood
+TIME='microsec'
+make_script
+gnuplot ${SET}_mgood.p
+
+### making average bad query script
+TYPE='Unsuccessful Query'
+TITLE='Average Unsuccessful Query Time'
+DATA=${SET}_mbad
+TIME='microsec'
+make_script
+gnuplot ${SET}_mbad.p
+

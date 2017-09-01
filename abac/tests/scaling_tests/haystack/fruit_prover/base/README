@@ -1,0 +1,106 @@
+#!/bin/sh
+#
+#  This demonstrates scalability of libabac. The fruit_rt2 test from 
+#  creddy_prover_tests is use as the base. 
+#       #VAL# simple attribute credentials are added, 
+#       #VAL# complex attribute credentials along 
+#             with #VAL# different principal ids are added.
+#  The same queries used in fruit_rt2 are run against this setup and 
+#  should  yield the same result
+# number of credentials, 3 + 6 + 3 x #VAL#
+
+
+# fruits_rt2_creddy
+
+# mary.what2eat<-?-navel orange  good
+# mary.what2eat<-?-kiwi  good
+# bob.what2eat<-?-navel orange  bad
+# ralphs.fruitprice(1.50)<-?-apple   good
+# ralphs.fruitprice(1.50)<-?-green apple   bad
+
+creddy --generate --cn Mary
+creddy --generate --cn Bob
+creddy --generate --cn Ralphs
+
+fruitprice_qP="fruitprice([float:?P:[..2.00]])"
+fruitprice_qP_2="fruitprice([float:?P:[1.00..5.00]])"
+
+# [keyid:mary].oset:what2eat 
+#      <- [keyid:ralphs].oset:fruitprice([float:?P:[..2.00]])
+# Credential 1
+creddy --attribute \
+       --issuer Mary_ID.pem --key Mary_private.pem --oset "what2eat" \
+       --subject-cert Ralphs_ID.pem --subject-oset "$fruitprice_qP" \
+       --out mary_what2eat__ralphs_fruitprice_qP_attr.der
+
+# [keyid:bob].oset:what2eat 
+#      <- [keyid:ralphs].oset:fruitprice([float:?P:[1.00..5.00]])
+# Credential 2
+creddy --attribute \
+       --issuer Bob_ID.pem --key Bob_private.pem --oset "what2eat" \
+       --subject-cert Ralphs_ID.pem --subject-oset "$fruitprice_qP_2" \
+       --out bob_what2eat__ralphs_fruitprice_qP_2_attr.der
+
+# [keyid:ralphs].oset:fruitprice([float:1.50]) <- [string:'apple']
+# Credential 3
+creddy --attribute \
+        --issuer Ralphs_ID.pem --key Ralphs_private.pem \
+        --oset "fruitprice([float:1.50])" \
+        --subject-obj "[string:'apple']" \
+        --out Ralphs_fruitprice__apple_attr.der
+
+# [keyid:ralphs].oset:fruitprice([float:1.50]) <- [string:'kiwi']
+# Credential 4
+creddy --attribute \
+        --issuer Ralphs_ID.pem --key Ralphs_private.pem \
+        --oset "fruitprice([float:1.50])" \
+        --subject-obj "[string:'kiwi']" \
+        --out Ralphs_fruitprice__kiwi_attr.der
+
+
+# [keyid:ralphs].oset:fruitprice([float:2.50]) <- [string:'black rasberry']
+# Credential 5
+creddy --attribute \
+        --issuer Ralphs_ID.pem --key Ralphs_private.pem \
+        --oset "fruitprice([float:2.50])" \
+        --subject-obj "[string:'black rasberry']" \
+        --out Ralphs_fruitprice__black_rasberry_attr.der
+
+# [keyid:ralphs].oset:fruitprice([float:0.50]) <- [string:'navel orange']
+# Credential 6
+creddy --attribute \
+        --issuer Ralphs_ID.pem --key Ralphs_private.pem \
+        --oset "fruitprice([float:0.50])" \
+        --subject-obj "[string:'navel orange']" \
+        --out Ralphs_fruitprice__navel_orange_attr.der
+
+############### NOISE #######################################
+# [keyid:Ralphs].oset:fruitprice([float:X.00])  <- [string:bananaY]
+for i in $(seq 1 #VAL#);
+do
+  fruit="banana$i"
+  price="fruitprice([float:$i.00])"
+  stuff="[string:'$fruit']"
+  ostr="Ralphs_fruitprice__${fruit}_attr.der"
+  creddy --attribute \
+        --issuer Ralphs_ID.pem --key Ralphs_private.pem \
+        --oset "$price" \
+        --subject-obj "$stuff" \
+        --out $ostr
+done
+
+# [keyid:johnX]
+# [keyid:johnX].oset:what2eat 
+#               <- [keyid:ralphs].oset:fruitprice([float:?P:[1.00..5.00]])
+for i in $(seq 1 #VAL#);
+do
+  name="John$i"
+creddy --generate --cn $name 
+
+  ostr="${name}_what2eat__ralphs_fruitprice_qP_2_attr.der"
+creddy --attribute \
+       --issuer ${name}_ID.pem --key ${name}_private.pem --oset "what2eat" \
+       --subject-cert Ralphs_ID.pem --subject-oset "$fruitprice_qP_2" \
+       --out $ostr
+done
+

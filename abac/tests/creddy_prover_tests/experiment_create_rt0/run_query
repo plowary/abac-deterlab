@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+. ${TESTDIR}/test_util.sh
+keyloc=`pwd`
+
+acme=`$eloc/creddy --keyid --cert $keyloc/Acme_ID.pem`
+alice=`$eloc/creddy --keyid --cert $keyloc/Alice_ID.pem`
+bob=`$eloc/creddy --keyid --cert $keyloc/Bob_ID.pem`
+globotron=`$eloc/creddy --keyid --cert $keyloc/Globotron_ID.pem`
+
+glob_admin="$globotron.admin"
+alice_prin="$alice"
+bob_prin="$bob"
+experiment_create="$acme.experiment_create"
+
+#`$ploc/abac_prover  --keystore $keyloc --dump dump.file`
+
+echo "===good=============== Globotron.admin <- Alice"
+runTest creddy_prover_test/experiment_create_rt0 test1 \
+  "$ploc/abac_prover  --keystore $keyloc --role $glob_admin --principal $alice_prin" \
+  0 \
+  "simple query"
+
+
+echo "===bad=============== Globotron.admin <- Bob"
+runTest creddy_prover_test/experiment_create_rt0 test2 \
+  "$ploc/abac_prover  --keystore $keyloc --role $glob_admin --principal $bob_prin" \
+  1 \
+  "no rule support this, should get a partial proof"
+
+echo "===good=============== Acme.experiment_create <- Bob"
+runTest creddy_prover_test/experiment_create_rt0 test3 \
+  "$ploc/abac_prover  --keystore $keyloc  --role $experiment_create --principal $bob_prin" \
+  0 \
+  "mutilple rules intersection proof"
+
+
+
+

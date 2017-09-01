@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+. ${TESTDIR}/test_util.sh
+
+keystore=`pwd`
+
+echo "generate an encrypted private key"
+echo "dumdum" > pfile
+openssl genrsa -des3 -out Soda_eprivate.pem -passout file:pfile
+
+echo "make a id credential with encrypted private key"
+$eloc/creddy --generate --cn Soda --key Soda_eprivate.pem
+
+echo "make a generic  id credential"
+$eloc/creddy --generate --cn Slush 
+
+#principal
+$eloc/creddy --generate --cn Cream
+
+echo "make an attribute with id with encrypted private key"
+./abac_e_attr.py Soda_ID.pem Soda_eprivate.pem Soda_attr.xml pfile Cream_ID.pem 
+
+echo "make an attribute with id with none-encrypted private key"
+./abac_e_attr.py Slush_ID.pem Slush_private.pem Slush_attr.xml pfile Cream_ID.pem 
+

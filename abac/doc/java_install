@@ -1,0 +1,29 @@
+The Java code lives in the java subdirectory.
+
+The package should contain all dependencies necessary for
+building/installing Java.
+
+SIMPLE BUILD
+
+    gradle all
+
+REGRESSION TEST
+
+    gradle test
+
+
+OTHER OPTIONS
+---for Gradle---
+To see all supported Gradle tasks, run `gradle tasks`
+
+---for Ant only---
+The following ant targets are supported:
+
+    all: clean then compile and make docs
+    compile: build the library and test programs
+    regression-test: run a set of regression test programs 
+    jar: build jabac.jar in build/jar/jabac.jar
+    doc: greate API javadocs in ./doc
+    dev-doc: create developer API javadocs in ./dev-doc (includes
+            package/private/protected functions)
+    clean: remove created files (includes .der and .pem in this directory)

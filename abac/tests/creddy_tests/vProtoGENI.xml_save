@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<signed-credential xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.protogeni.net/resources/credential/credential.xsd" xsi:schemaLocation="http://www.protogeni.net/resources/credential/ext/policy/1 http://www.protogeni.net/resources/credential/ext/policy/1/policy.xsd">
+  <credential xml:id="refB1DE09CB704FF2CB">
+ <type>privilege</type>
+ <serial>308739</serial>
+ <owner_gid>MIIDoTCCAwqgAwIBAgIDAS/uMA0GCSqGSIb3DQEBBAUAMIG4MQswCQYDVQQGEwJV
+UzENMAsGA1UECBMEVXRhaDEXMBUGA1UEBxMOU2FsdCBMYWtlIENpdHkxHTAbBgNV
+BAoTFFV0YWggTmV0d29yayBUZXN0YmVkMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBB
+dXRob3JpdHkxGDAWBgNVBAMTD2Jvc3MuZW11bGFiLm5ldDEoMCYGCSqGSIb3DQEJ
+ARYZdGVzdGJlZC1vcHNAZmx1eC51dGFoLmVkdTAeFw0xMTEwMDUxOTUxMDZaFw0x
+NzAzMjcyMDUxMDZaMIGsMQswCQYDVQQGEwJVUzENMAsGA1UECBMEVXRhaDEdMBsG
+A1UEChMUVXRhaCBOZXR3b3JrIFRlc3RiZWQxFjAUBgNVBAsTDXV0YWhlbXVsYWIu
+c2ExLTArBgNVBAMTJDJiNDM3ZmFhLWFhMDAtMTFkZC1hZDFmLTAwMTE0M2U0NTNm
+ZTEoMCYGCSqGSIb3DQEJARYZdGVzdGJlZC1vcHNAZmx1eC51dGFoLmVkdTCBnzAN
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA1ayN3cGHH9hsmTgVWVjb2ZOqF8zFJ1Ew
+TFRpXVtI//wk05+Z7uunpxn/QL1F3NjdcIEToEupo1q2tRUfCc2hquLBgC5zNfut
+YD/b5ukEsF5COKHb+pYl2RZly9BVckt+ySFLnC23erKW7ILyO2fGBD/QzHZNPhdY
+/fs18iCh58cCAwEAAaOBwjCBvzAdBgNVHQ4EFgQUU2CjacFUMyUNL++CplFi++MF
+Sl0wMwYDVR0RBCwwKoYodXJuOnB1YmxpY2lkOklETitlbXVsYWIubmV0K2F1dGhv
+cml0eStzYTAPBgNVHRMBAf8EBTADAQH/MFgGCCsGAQUFBwEBBEwwSjBIBhRpg8yT
+gKiYzKjHvbGngICqrteKG4YwaHR0cHM6Ly93d3cuZW11bGFiLm5ldDoxMjM2OS9w
+cm90b2dlbmkveG1scnBjL3NhMA0GCSqGSIb3DQEBBAUAA4GBAIDXwcvEu3HJApFQ
+bQduTiHGXQ8Og/2ZIFLXHkqu4SW81RaYVbHwRFxnKHOktKm7js9wjEPo/F0tqIRT
+21x7yE7uOce/8tWNW241fVuIRyO/o/DNd/FVFyFU5WNqP6f/rzEu92iuO6zIJPBg
+fmkqRvZqMOm5R//SSNBFl83lZzlu
+</owner_gid>
+ <owner_urn>urn:publicid:IDN+emulab.net+authority+sa</owner_urn>
+ <target_gid>MIIDoTCCAwqgAwIBAgIDAS/uMA0GCSqGSIb3DQEBBAUAMIG4MQswCQYDVQQGEwJV
+UzENMAsGA1UECBMEVXRhaDEXMBUGA1UEBxMOU2FsdCBMYWtlIENpdHkxHTAbBgNV
+BAoTFFV0YWggTmV0d29yayBUZXN0YmVkMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBB
+dXRob3JpdHkxGDAWBgNVBAMTD2Jvc3MuZW11bGFiLm5ldDEoMCYGCSqGSIb3DQEJ
+ARYZdGVzdGJlZC1vcHNAZmx1eC51dGFoLmVkdTAeFw0xMTEwMDUxOTUxMDZaFw0x
+NzAzMjcyMDUxMDZaMIGsMQswCQYDVQQGEwJVUzENMAsGA1UECBMEVXRhaDEdMBsG
+A1UEChMUVXRhaCBOZXR3b3JrIFRlc3RiZWQxFjAUBgNVBAsTDXV0YWhlbXVsYWIu
+c2ExLTArBgNVBAMTJDJiNDM3ZmFhLWFhMDAtMTFkZC1hZDFmLTAwMTE0M2U0NTNm
+ZTEoMCYGCSqGSIb3DQEJARYZdGVzdGJlZC1vcHNAZmx1eC51dGFoLmVkdTCBnzAN
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA1ayN3cGHH9hsmTgVWVjb2ZOqF8zFJ1Ew
+TFRpXVtI//wk05+Z7uunpxn/QL1F3NjdcIEToEupo1q2tRUfCc2hquLBgC5zNfut
+YD/b5ukEsF5COKHb+pYl2RZly9BVckt+ySFLnC23erKW7ILyO2fGBD/QzHZNPhdY
+/fs18iCh58cCAwEAAaOBwjCBvzAdBgNVHQ4EFgQUU2CjacFUMyUNL++CplFi++MF
+Sl0wMwYDVR0RBCwwKoYodXJuOnB1YmxpY2lkOklETitlbXVsYWIubmV0K2F1dGhv
+cml0eStzYTAPBgNVHRMBAf8EBTADAQH/MFgGCCsGAQUFBwEBBEwwSjBIBhRpg8yT
+gKiYzKjHvbGngICqrteKG4YwaHR0cHM6Ly93d3cuZW11bGFiLm5ldDoxMjM2OS9w
+cm90b2dlbmkveG1scnBjL3NhMA0GCSqGSIb3DQEBBAUAA4GBAIDXwcvEu3HJApFQ
+bQduTiHGXQ8Og/2ZIFLXHkqu4SW81RaYVbHwRFxnKHOktKm7js9wjEPo/F0tqIRT
+21x7yE7uOce/8tWNW241fVuIRyO/o/DNd/FVFyFU5WNqP6f/rzEu92iuO6zIJPBg
+fmkqRvZqMOm5R//SSNBFl83lZzlu
+</target_gid>
+ <target_urn>urn:publicid:IDN+emulab.net+authority+sa</target_urn>
+ <uuid>74845c29-ed82-11e2-99a7-001143e453fe</uuid>
+ <expires>2016-07-14T19:12:13Z</expires>
+  <privileges>
+<privilege><name>*</name><can_delegate>1</can_delegate></privilege>
+</privileges></credential>
+  <signatures>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#" xml:id="Sig_refB1DE09CB704FF2CB">
+ <SignedInfo>
+  <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+  <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+  <Reference URI="#refB1DE09CB704FF2CB">
+    <Transforms>
+      <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+    </Transforms>
+    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <DigestValue>Z8tFvDugWMYGU8ijODPINvioSbE=</DigestValue>
+    </Reference>
+ </SignedInfo>
+ <SignatureValue>lyqWnz3qAxrfPlGDgDt1lk2dpUTF3le+HJsSR2Pc6K6IQk1/YIJZ7Ay1/VScGcM2
+nteBLiOFsqEANn0zSz/qS3yIfzAdAJu4jteI4Dee5+gbnREeNkXq4RBw+ZIn1R24
+ZBdjX8rnNyaz0nS/XG/aLPfliqQgvefrjCsKn8eL+qE=</SignatureValue>
+ <KeyInfo>
+  <X509Data>
+   
+   
+   
+  <X509Certificate>MIIDoTCCAwqgAwIBAgIDAS/uMA0GCSqGSIb3DQEBBAUAMIG4MQswCQYDVQQGEwJV
+UzENMAsGA1UECBMEVXRhaDEXMBUGA1UEBxMOU2FsdCBMYWtlIENpdHkxHTAbBgNV
+BAoTFFV0YWggTmV0d29yayBUZXN0YmVkMR4wHAYDVQQLExVDZXJ0aWZpY2F0ZSBB
+dXRob3JpdHkxGDAWBgNVBAMTD2Jvc3MuZW11bGFiLm5ldDEoMCYGCSqGSIb3DQEJ
+ARYZdGVzdGJlZC1vcHNAZmx1eC51dGFoLmVkdTAeFw0xMTEwMDUxOTUxMDZaFw0x
+NzAzMjcyMDUxMDZaMIGsMQswCQYDVQQGEwJVUzENMAsGA1UECBMEVXRhaDEdMBsG
+A1UEChMUVXRhaCBOZXR3b3JrIFRlc3RiZWQxFjAUBgNVBAsTDXV0YWhlbXVsYWIu
+c2ExLTArBgNVBAMTJDJiNDM3ZmFhLWFhMDAtMTFkZC1hZDFmLTAwMTE0M2U0NTNm
+ZTEoMCYGCSqGSIb3DQEJARYZdGVzdGJlZC1vcHNAZmx1eC51dGFoLmVkdTCBnzAN
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA1ayN3cGHH9hsmTgVWVjb2ZOqF8zFJ1Ew
+TFRpXVtI//wk05+Z7uunpxn/QL1F3NjdcIEToEupo1q2tRUfCc2hquLBgC5zNfut
+YD/b5ukEsF5COKHb+pYl2RZly9BVckt+ySFLnC23erKW7ILyO2fGBD/QzHZNPhdY
+/fs18iCh58cCAwEAAaOBwjCBvzAdBgNVHQ4EFgQUU2CjacFUMyUNL++CplFi++MF
+Sl0wMwYDVR0RBCwwKoYodXJuOnB1YmxpY2lkOklETitlbXVsYWIubmV0K2F1dGhv
+cml0eStzYTAPBgNVHRMBAf8EBTADAQH/MFgGCCsGAQUFBwEBBEwwSjBIBhRpg8yT
+gKiYzKjHvbGngICqrteKG4YwaHR0cHM6Ly93d3cuZW11bGFiLm5ldDoxMjM2OS9w
+cm90b2dlbmkveG1scnBjL3NhMA0GCSqGSIb3DQEBBAUAA4GBAIDXwcvEu3HJApFQ
+bQduTiHGXQ8Og/2ZIFLXHkqu4SW81RaYVbHwRFxnKHOktKm7js9wjEPo/F0tqIRT
+21x7yE7uOce/8tWNW241fVuIRyO/o/DNd/FVFyFU5WNqP6f/rzEu92iuO6zIJPBg
+fmkqRvZqMOm5R//SSNBFl83lZzlu</X509Certificate>
+<X509SubjectName>emailAddress=testbed-ops@flux.utah.edu,CN=2b437faa-aa00-11dd-ad1f-001143e453fe,OU=utahemulab.sa,O=Utah Network Testbed,ST=Utah,C=US</X509SubjectName>
+<X509IssuerSerial>
+<X509IssuerName>emailAddress=testbed-ops@flux.utah.edu,CN=boss.emulab.net,OU=Certificate Authority,O=Utah Network Testbed,L=Salt Lake City,ST=Utah,C=US</X509IssuerName>
+<X509SerialNumber>77806</X509SerialNumber>
+</X509IssuerSerial>
+</X509Data>
+  <KeyValue>
+<RSAKeyValue>
+<Modulus>
+1ayN3cGHH9hsmTgVWVjb2ZOqF8zFJ1EwTFRpXVtI//wk05+Z7uunpxn/QL1F3Njd
+cIEToEupo1q2tRUfCc2hquLBgC5zNfutYD/b5ukEsF5COKHb+pYl2RZly9BVckt+
+ySFLnC23erKW7ILyO2fGBD/QzHZNPhdY/fs18iCh58c=
+</Modulus>
+<Exponent>
+AQAB
+</Exponent>
+</RSAKeyValue>
+</KeyValue>
+ </KeyInfo>
+</Signature>
+  </signatures>
+</signed-credential>

@@ -1,0 +1,43 @@
+#####################################################################
+# This example demonstrates various ways to create and access
+# ID credentials using libabac api
+#  
+
+case 1: make ID  -- not in RT0
+        writing cert file
+        writing key file
+        load cert, key file
+
+case 2: make ID  -- not in RT0
+        load ID
+
+case 3: make ID  -- not in RT0?
+        write key to combo file
+        write cert to combo file
+        load combo file
+
+case 4: make ID
+        write key to unconventional name
+        write cert to unconventional name
+        load unconventional filename
+        
+case 5: make ID
+        write cert to combo file
+        load combo file
+
+case 6: make ID
+        write key to combo file
+        load combo file
+
+case 7: make ID
+        extract id chunk cert from ID
+        make another ID with the chunk cert
+        load new ID(as chunk)
+
+case 8: make ID
+        extract id cert chunk from ID
+        load the cert chunk directly into context
+
+case 9: load unknown combo file
+
+

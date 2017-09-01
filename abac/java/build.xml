@@ -1,0 +1,113 @@
+<!--
+  REPLACED BY GRADLE IN JABAC 0.2.0
+  Project file for ant to build java ABAC library and test cases.  
+  Requires Jung and bouncycastle.
+
+  Targets:
+    all: clean then compile and make docs
+    compile: build the library and test programs
+    regression-test: run a set of regression test programs
+    jar: build jabac.jar in build/jar/jabac.jar
+    doc: greate API javadocs in ./doc
+    dev-doc: create developer API javadocs in ./dev-doc (includes
+	    package/private/protected functions)
+    clean: remove created files (includes .der and .pem in this directory)
+-->
+
+<project name="jabac" default="all">
+
+  <property name="src.dir" value="."/>
+  <property name="lib.dir" value="jar"/>
+  <property name="build.dir" value="build"/>
+  <property name="classes.dir" value="${build.dir}/classes"/>
+  <property name="example.dir" value="${src.dir}/example"/>
+  <property name="regression.dir" value="${src.dir}/regression"/>
+  <property name="jar.dir" value="${build.dir}/jar"/>
+  <property name="doc.dir" value="./doc"/>
+  <property name="devdoc.dir" value="./dev-doc"/>
+  <property name="main.class" value="GraphTest"/>
+  <property name="dump.class" value="Dumper"/>
+  <property name="read.class" value="Reader"/>
+  <property name="write.class" value="Writer"/>
+  <property name="regression.class" value="Regression"/>
+  <property name="example.class" value="CreateExample"/>
+  <property name="version" value="0.1.9"/>
+
+  <path id="compile.classpath">
+    <fileset dir="${lib.dir}" includes="**/*.jar"/>
+  </path>
+
+  <target name="all" depends="clean, compile, jar, doc, dev-doc"
+    description="Clean then build" />
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${doc.dir}"/>
+    <delete dir="${devdoc.dir}"/>
+    <delete dir="${example.dir}"/>
+    <delete dir="${src.dir}/scratch"/>
+  </target>
+
+
+  <target name="compile" description="Compile the source">
+    <mkdir dir="${classes.dir}" />
+    <javac srcdir="${src.dir}" destdir="${classes.dir}" 
+      classpathref="compile.classpath" includeAntRuntime="no" debug="true">
+      <compilerarg value="-Xlint:deprecation"/>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile" description="Make a jar">
+    <mkdir dir="${jar.dir}"/>
+    <jar destfile="${jar.dir}/jabac-${version}.jar" basedir="${classes.dir}"
+      excludes="**/GraphTest.class **/Dumper.class net/deterlab/abac/regression/*">
+      <manifest>
+	<attribute name="Class-Path" value="${classpath}" />
+      </manifest>
+    </jar>
+  </target>
+
+  <target name="doc" description="Generate API documentation">
+    <mkdir dir="${doc.dir}"/>
+    <javadoc sourcepath="${src.dir}" destdir="${doc.dir}"
+      classpathref="compile.classpath" access="public"
+      excludepackagenames="net.deterlab/abac.regression"
+      noqualifier="java.lang:java.io:java.util:java.security:java.security.cert"/>
+  </target>
+
+  <target name="dev-doc" description="Generate developer API documentation">
+    <mkdir dir="${doc.dir}"/>
+    <javadoc sourcepath="${src.dir}" destdir="${devdoc.dir}" access="private"
+      classpathref="compile.classpath" 
+      excludepackagenames="net.deterlab/abac.regression"
+      noqualifier="java.lang:java.io:java.util:java.security:java.security.cert"/>
+  </target>
+
+  <target name="run-dump" depends="compile" description="run dumper">
+    <java classname="${dump.class}" fork="true" >
+      <classpath>
+	<path refid="compile.classpath"/>
+	<pathelement path="${classes.dir}"/>
+      </classpath>
+      <arg file="attr0.der"/>
+    </java>
+  </target>
+
+  <target name="create-scratch" depends="compile" description="Create scratch directory">
+    <delete dir="${src.dir}/scratch"/>
+    <mkdir dir="${src.dir}/scratch"/>
+  </target>
+
+  <target name="run-regression" depends="compile" description="Run the regression test program">
+    <java classname="${regression.class}" fork="true" >
+      <classpath>
+	<path refid="compile.classpath"/>
+	<pathelement path="${classes.dir}"/>
+      </classpath>
+      <arg file="${src.dir}/regression"/>
+      <arg file="${src.dir}/scratch"/>
+    </java>
+  </target>
+
+  <target name="regression-test" depends="create-scratch,run-regression" description="Run the regression test "/>
+</project>

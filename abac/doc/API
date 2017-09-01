@@ -1,0 +1,424 @@
+C++ API
+
+(see bottom for notes on C, Perl, Python and Java)
+
+ABAC::abac_chunk_t
+   Structure, represents a blob of memory
+   used to load/return Identity credentials and Attribute certificates
+     -unsigned char *data
+     -int len
+
+ABAC::Context
+    An ABAC Context
+
+   Context()
+     default constructor
+     (C:abac_context_new)
+
+   Context(const Context &)
+     copy constructor, used for cloning the context
+     (C:abac_context_dup)
+
+   ~Context()
+     default destructor
+     (C:abac_context_free)
+
+   int load_id_file(char *)
+     load identity certificate from an id file
+     (C:abac_context_load_id_file)
+
+   int load_id_chunk(abac_chunk_t)
+     load id certificate from an chunk
+     (C:abac_context_load_id_chunk)
+
+   int load_id_id(ID&)
+     load id certificate from an existing ID
+     (C:abac_context_load_id_id)
+
+   int load_attribute_file(char *)
+     load attribute certificate from an id file. 
+     (C:abac_context_load_attribute_file)
+
+   int load_attribute_chunk(abac_chunk_t)
+     load attribute certificate from an chunk
+     (C:abac_context_load_attribute_chunk)
+
+   returns : 
+        ABAC_CERT_SUCCESS   successfully loaded
+        ABAC_CERT_INVALID   invalid certificate (or file not found)
+        ABAC_CERT_BAD_SIG   invalid signature
+
+   void load_directory(char *)
+     load a directory full of certificates:
+
+        first: ${path}/NAME_ID.{der,pem} as identity certificates
+               implicitly looking for ${path}/NAME_private.{der,pem} as
+               the private key file
+        last: ${path}/NAME_attr.xml as attribute certificates
+      (C:abac_context_load_directory)
+
+   std::vector<Credential> query(char *, char *, bool &)
+     run the query:
+        role <-?- principal
+     returns true/false in success
+     returns a proof upon success, partial proof on failure
+     (C:abac_context_query)
+     (C::abac_free_credentials_free)
+
+   std::vector<Credential> credentials(bool &)
+     returns a vector of all the credentials loaded in the context
+     (C:abac_context_credentials)
+     (C::abac_context_credentials_free)
+
+   void set_nickname(char *key, char *nick)
+     Set the nickname (value printed) for keyid.  The substitution is made 
+     in Role::short_string(Context) and when bake(Context) is called on a new
+     attribute.
+     (C:abac_context_set_nickname)
+
+ABAC::Role
+   A Role, most calls are rarely used outside the library 
+
+   Role()
+     default constructor, do not use, for swig only
+
+   Role(abac_role_t*)
+     copy constructor, used for cloning an Role
+     (C:abac_role_dup)
+
+   Role(char *)
+     instantiate a role from a string
+     (C:abac_role_from_string)
+
+   Role(const Role &)
+     copy constructor, used for cloning an Role
+     (C:abac_role_dup)
+
+   ~Role()
+     default destructor
+     (C:abac_role_free)
+
+   bool is_principal()
+     (C:abac_role_is_principal)
+
+   bool is_role()
+     (C:abac_role_is_role)
+
+   bool is_linking()
+     (C:abac_role_is_linking)
+     indicates the type of role encoded
+
+   char* string()
+     string representation of the role
+     (C:abac_role_string)
+
+   char* short_string()
+     string representation of the role
+     (C:abac_role_short_string)
+
+   char* linked_role()
+     the linked role of a linking role
+     i.e., A.r1.r2, linked_role() returns A.r1
+     (C:abac_role_linked_role)
+
+   char* role_name()
+     the role name of any role (the part after the last dot)
+     (C:abac_role_role_name)
+
+   char* principal()
+     the principal part of any role
+     (C:abac_role_principal)
+
+ABAC::Credential
+   This is never instantiated directly. These will only ever be
+   returned as a result of calls to Context::query or
+   Context::credentials.
+
+   Credential()
+     default constructor, do not use, for swig only
+
+   Credential(abac_credential_t*)
+     copy constructor, used for cloning a credential
+     (C:abac_credential_head)
+     (C:abac_credential_tail)
+     (C:abac_credential_dup)
+
+   Credential(const Credential&)
+     copy constructor, used for cloning a credential
+     (C:abac_credential_head)
+     (C:abac_credential_tail)
+     (C:abac_credential_dup)
+
+   ~Credential()
+     default destructor
+     (C:abac_credential_free)
+
+   Role &head()
+     returns the head of the credential
+
+   Role &tail()
+     returns the tail of the credential
+
+   abac_chunk_t attribute_cert()
+     returns the attribute certificate in chunk, suitable for
+     transmission over the network or storage in a file
+     (C:abac_credential_attribute_cert)
+
+   abac_chunk_t issuer_cert()
+     returns the issuer certificate in chunk, again suitable for
+     network transmission or file storage
+     (C:abac_credential_issuer_cert)
+
+ABAC::ID
+   An ID holds a principal credential. It maybe imported from an existing
+   ID credential via external files, constructed from a streaming chunk,
+   or instantiated on the fly
+
+   ID()
+     default constructor, do not use, for swig only
+
+   ID(const ID &)
+     copy constructor, used for cloning an ID
+     (C:abac_id_dup)
+
+   ~ID()
+     default destructor
+     (C:abac_id_free)
+
+   ID(char *)
+     load an ID certificate from a file, will throw an exception
+     if the certificate cannot be loaded
+     (C:abac_id_from_file)
+
+   ID_chunk(abac_chunk_t chunk)
+     create an ID certificate from an certificate chunk, will
+     throw an exception if the certificate cannot be loaded
+     (C:abac_id_from_chunk)
+
+   ID(char *,int)
+     generates a new ID(cert&key) with the supplied CN and validity period
+     - CN must be alphanumeric and begin with a letter
+     - validity must be at least one second
+     will throw an exception if either of the above is violated
+     (C:abac_id_generate)
+
+   void load_privkey(char *)
+     loads the private key associated with the ID credential,
+     will throw an exception if the key cannot be loaded
+     (C:abac_id_privkey_from_file)
+
+   void load_privkey_chunk(abac_chunk_t)
+     loads the private key associated with the ID credential,
+     will throw an exception if the key cannot be loaded
+     (C:abac_id_privkey_from_chunk)
+
+   int has_privkey()
+     check to see if there is a privkey in this ID
+     (C:abac_id_has_privkey)
+
+   char *keyid()
+     returns the SHA1 keyid of the id cert
+     (C:abac_id_keyid)
+
+   char *cn()
+     returns the cn of the id cert
+     (C:abac_id_cn)
+
+   char *cert_filename()
+     returns the default libabac filename for the cert. 
+     value must be freed by caller.
+     (C:abac_id_cert_filename)
+
+   void write_cert(FILE *)
+     writes a PEM-encoded certificate to a file handle
+     (C:abac_id_write_cert)
+
+   void write_cert(string &)
+     writes a PEM-encoded certificate to a file named in string
+
+   void write_cert_file(const char *)
+     writes a PEM-encoded certificate to a file
+
+   void write_cert_name(const char *)
+     writes a PEM-encoded certificate to a file
+     (added to support original libcreddy users)
+
+   char *privkey_filename()
+     returns the default libabac filename for the private key. 
+     value must be freed by caller.
+     (C:abac_id_privkey_filename)
+
+   void write_privkey(FILE *)
+     write the private key to a file handle
+     throws a std::logic_error if no private key is loaded
+     (C:abac_id_write_privkey)
+
+   void write_privkey(string &)
+     writes a private key to file named in string
+
+   void write_privkey_file(const char *)
+     writes a private key to a file
+
+   void write_privkey_name(const char *)
+     writes a private key to a file
+     (added to support original libcreddy users)
+
+   abac_chunk_t cert_chunk()
+     returns a DER-encoded binary representation of the X.509 ID cert
+     associated with this ID.
+     can be passed to libabac's Context::load_id_chunk()
+     (C:abac_id_cert_chunk)
+
+   abac_chunk_t privkey_chunk()
+     returns a PEM-encoded binary representation of the private key
+     associated with this ID.
+     (C:abac_id_privkey_chunk)
+
+ABAC::Attribute
+   This is the attribute representation for the access policy rule
+       LHS <- RHS
+   The sequence of generation is to
+       first, instantiate the object, ie, LHS (head)
+       second, adding subject(s) to it, ie, RHS (tail)
+       and then baking it.
+   Only once it's baked can you access the X.509 cert.
+   Once it's been baked you can no longer add subjects to it
+
+   Attribute()
+     default constructor, do not use, for swig only
+
+   ~Attribute()
+     default destructor
+     (C:abac_attribute_free)
+
+   Attribute(ID&, char*,int)
+     constructor that creates an attribute policy to be signed by the issuer
+     with the given role with a specified validity period
+     An exception will be thrown if:
+       - the issuer has no private key
+       - the Head role is invalid
+       - the validity period is invalid (must be >= 0 second)
+       - The issuer is invalid
+     (C:abac_attribute_create)
+
+   bool principal(char *keyid) 
+     {keyid}
+     validate the principal and insert into the attribute
+     throw a std::logic_error if the cert's been baked and keyid bad
+     (C:abac_attribute_principal)
+
+  bool role(char *keyid, char *role)
+     {keyid.role}
+     validate the principal and role and insert into the attribute
+     throw a std::logic_error if the cert's been baked and keyid bad
+     (C:abac_attribute_role)
+
+  bool linking_role(char *keyid, char *role, char *linked)
+     {keyid.linked.role}
+     validate the role and linking role and insert into the attribute
+     throw a std::logic_error if the cert's been baked and keyid bad
+     (C:abac_attribute_linking_role)
+
+   bool bake()
+     Generate the cert. Call this after you've added subjects to your cert.
+     This returns false if there are no subjects
+     This will throw an exception if the cert's already been baked.
+     (C:abac_attribute_bake)
+
+   bool bake(Context c)
+     Generate the cert. Call this after you've added subjects to your cert.
+     This returns false if there are no subjects
+     This will throw an exception if the cert's already been baked.
+     This version annotated the baked credential with any mnemonic names in the
+     context.
+     (C:abac_attribute_bake_context)
+
+   bool baked()
+     returns true iff the certificate has been baked.
+     (C:abac_attribute_baked)
+
+   set_output_format(char *fmt)
+     {fmt}
+     Set the attribute's output format.  Valid choices are GENIv1.0 and
+     GENIV1.1.  Default is GENIv1.1.
+
+   get_output_format(char *fmt)
+     Get the attribute's output format.  Do not delete the string/
+
+   void write(FILE *)
+     write an attribute certificate in XML to an open file handle
+     Throws an exception if the certificate isn't baked
+     (C:abac_attribute_write)
+
+   void write(const string&)
+     write an attribute certificate in XML to file named in string
+
+   void write_file(const char *)
+     write an attribute certificate in XML to file
+
+   void write_name(const char *)
+     write an attribute certificate in XML to file
+     (added to support original libcreddy users)
+
+   abac_chunk_t cert_chunk()
+     returns a XML structure of the attribute certificate in a abac_chunk_t
+     Throws an exception if the certificate isn't baked
+     the chunk can be passed to libabac's Context::load_attribute_chunk()
+     (C:abac_attribute_cert_chunk)
+C API
+
+The C API is nearly identical to the C++ API. Due to lack of namespaces,
+all function names are preceeded by abac_. Furthermore, the parameter
+representing the object must be passed explicitly. Each of the C++ calls
+are appended with a matching C routine call. The C function declaration 
+can be found in abac.h
+
+Examples:
+
+    C++:    head.role_name()
+    C:      abac_role_name(head)
+    or 
+    C++:    ctxt.load_attribute_file("test_attr.der")
+    C:      abac_context_load_attribute_file(ctxt, "test_attr.der")
+
+Instead of copy constructors, the C API uses _dup.  Therefore,
+to copy a role use abac_role_dup(m_role), 
+to copy a context use abac_context_dup(m_ctxt),
+to copy a ID use abac_id_dup(m_id) 
+and to copy an attribute use abac_attribute_dup(m_attr)
+
+abac_context_query() and abac_context_credentials() return
+NULL-terminated arrays of Credential objects (abac_credential_t * in C).
+When you are done with them, you must free the whole array at once using
+abac_context_credentials_free().
+
+PERL, PYTHON AND JAVA API
+
+The Perl, Python and Java APIs are even more similar to the C++ API. The main
+changes are the use of native types instead of C/C++ types.
+
+    - native strings instead of char *
+
+    Java:
+        - String instead of char * 
+        - Context::query returns a vector of Credentials:
+            credentials = ctxt.query(role, principal)
+            success if credentials' size is > 0
+
+    Perl:
+        - arrayref instead of vector
+        - string instead of chunk_t
+        - Context::query returns a list of two elements:
+            my ($success, $credentials) = $ctxt->query($role, $principal)
+            $success is a boolean
+            $credentials is an arrayref of Credential objects
+
+    Python:
+        - tuple instead of vector
+        - bytearray instead of chunk_t (>= 2.6)
+        - string instead of chunk_t (< 2.6)
+        - Context::query returns a tuple with two elements:
+            (success, credentials) = ctxt.query(role, principal)
+            success is a boolean
+            credentials is a tuple of Credential objects
+

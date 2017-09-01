@@ -1,0 +1,23 @@
+#!/bin/sh 
+
+type=$1
+
+rm -rf timing
+mkdir timing
+ln -s ../../plotting plot
+cp plot/gen_small timing/gen_small
+cp plot/gen_big timing/gen_big
+cp plot/gen_med timing/gen_med
+cp plot/split_it timing/split_it 
+cat ${type}_*/*.time > timing/${type}_orig
+
+cd timing
+chmod +x gen_small gen_big split_it
+
+./split_it ${type}
+./gen_small ${type}
+./gen_big ${type}
+./gen_med ${type}
+
+tar cvf ${type}_plot.tar *.jpeg
+cp *.jpeg ../../../jpegs

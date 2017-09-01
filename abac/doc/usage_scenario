@@ -1,0 +1,41 @@
+You (Acme, Inc.) are running a service and you would like to use ABAC to
+authenticate users before they can buy rockets from you. Abstractly,
+your local set of credentials (as encoded by XML attribute
+certificates) looks like this:
+
+    Acme.buy_rockets <- Acme.preferred_customer
+
+When you launch your service, you will create an ABAC context and load
+your identity certificate and the attribute certificate that encodes the
+above credential.
+
+You have issued the following attribute (encoded in an XML attribute
+cert), which is held by a user of your service:
+
+    Acme.preferred_customer <- Coyote
+
+The Coyote will begin an SSL session to your service using his
+self-signed X509 identity certificate and will present this XML
+attribute certificate in the body of his message. You will clone the
+ABAC context and add the Coyote's identity certificate and the attribute
+certificate asserting that he is a preferred customer.
+
+You then issue a query asking:
+
+    Acme.buy_rockets <-?- Coyote
+
+The prover will return that this is in fact true and will return the set
+of credentials that proves this, namely:
+
+    Acme.buy_rockets <- Acme.preferred_customer
+    Acme.preferred_customer <- Coyote
+
+NOTES
+
+The credentials above are abstract representations. In actual
+credentials, 'Acme' and 'Coyote' would be represented by the SHA1 of
+their public keys.
+
+Given the above scenario, you can feel secure in selling rockets to the
+Coyote because he has established an SSL session using his certificate,
+indicating that he holds its private key.

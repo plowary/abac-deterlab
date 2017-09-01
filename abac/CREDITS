@@ -1,0 +1,6 @@
+Thanks go to:
+
+Tom Mitchell and Aaron Helsinger at BBN
+    * shaking down the build system
+    * compiling a list of dependencies for Ubuntu
+    * dependencies for FreeBSD

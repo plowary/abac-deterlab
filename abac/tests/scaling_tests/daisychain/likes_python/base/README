@@ -1,0 +1,26 @@
+#
+#  This demonstrates scalability of libabac.
+#  A basic chaining attribute rule, Ai+1.likes <- Ai.likes 
+#  and the borderline case of Ao.likes <- Ao are created in
+#  ATTR.py. X of these attribute rules are made, where the 
+#  matching ID principals are made in SETUP.py.
+#  A query of Ax.likes <-?- Ao will let us know how fast
+#  do the prolog db runs down the X attribute rules to arrive
+#  at the solution and also Ao.likes <-?- Ax tells us
+#  how long it takes to not validate the assumption
+
+# borderline Credential
+# [keyid:John0].role:likes <- [keyid:John0]
+#
+# [keyid:John1].role:likes <- [keyid:John0].likes
+# John1 likes everything John0 likes
+#
+# [keyid:John2].role:likes <- [keyid:John1].likes
+#
+# and so on
+
+# good query,   Does JohnN likes John0 ?
+#   [keyid:JohnN].role:likes <-?- [keyid:John0]
+#
+# bad query,    Does John0 likes JohnN?
+#   [keyid:John0].role:likes <-?- [keyid:JohnN]

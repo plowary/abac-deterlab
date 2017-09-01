@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+#  This demonstrates scalability of libabac. The fruit_rt2 test from 
+#  python_tests is use as the base. 
+#       #VAL# simple attribute credentials are added, 
+#       #VAL# complex attribute credentials along 
+#             with #VAL# different principal ids are added.
+#  The same queries used in fruit_rt2 are run against this setup and 
+#  should  yield the same result
+
+# fruits_rt2
+
+# Credential 1
+# [keyid:mary].oset:what2eat 
+#      <- [keyid:ralphs].oset:fruitprice([float:?P:[..2.00]])
+
+# Credential 2
+# [keyid:bob].oset:what2eat 
+#      <- [keyid:ralphs].oset:fruitprice([float:?P:[1.00..5.00]])
+
+# Credential 3
+# [keyid:ralphs].oset:fruitprice([float:1.50]) <- [string:'apple']
+
+# Credential 4
+# [keyid:ralphs].oset:fruitprice([float:1.50]) <- [string:'kiwi']
+
+# Credential 5
+# [keyid:ralphs].oset:fruitprice([float:2.50]) <- [string:'black rasberry']
+
+# Credential 6
+# [keyid:ralphs].oset:fruitprice([float:0.50]) <- [string:'navel orange']
+
+
+
+

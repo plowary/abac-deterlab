@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+#
+# This simple example makes use of 2 principals, IceCream and Chocolate.
+#
+# This example shows a very simple delegation of roles by IceCream.  A
+# delicious flavor of IceCream is Chocolate.
+#
+# And, a query IceCream.delicious <-?- Chocolate is made (should succeed)
+# then, remove the issuer credential, IceCream, and repeat the query,
+# then, remove the principal credential, Chocolate, and repeat the query
+#
+
+#IceCream.delicious <- Chocolate
+
+rm -rf *.pem *.xml
+
+. ${TESTDIR}/test_util.sh
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+
+$eloc/creddy --generate --cn IceCream
+
+$eloc/creddy --generate --cn Chocolate
+
+$eloc/creddy --attribute \
+       --issuer IceCream_ID.pem --key IceCream_private.pem --role delicious \
+       --subject-cert Chocolate_ID.pem \
+       --out IceCream_delicious__Chocolate_attr.xml

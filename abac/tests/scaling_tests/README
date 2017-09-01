@@ -1,0 +1,28 @@
+
+   To demostrate scalability of libabac and to get a rough 
+performance data, 2 types of scaling tests are designed.
+
+   haytack is the noise injection test 
+   daisychain is the long chaining proof test
+
+   To run,
+ 
+     make runcheck
+
+
+   will run several sets of setup/query that are of different
+sizes on each type of test
+
+   2 subdirectories are setup to make timing runs and generate
+jpeg graphs.
+   (Note, currently the Makefile for plotting is base for 
+   gnu make and so it is not going to work right with FreeBSD's 
+   make)
+
+   haystack/fruit_python
+   daisychain/likes_python
+
+   To run,
+
+      make plot
+ 

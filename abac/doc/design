@@ -1,0 +1,77 @@
+OVERVIEW
+
+ABAC proves attributes about principals.
+
+libabac is comprised of three main types of objects: credentials, roles,
+and contexts.
+
+A typical use of ABAC is:
+
+    - create a context
+    - load some certificates
+    - clone the context
+    - add more certificates, possibly presented by another party
+    - make a query 'does principal B have the role A.r1?'
+
+CREDENTIAL
+
+An ABAC credential is the most basic unit of an ABAC proof. It is a
+signed assertion by a principal A that some other entity has a role r1.
+Abstractly, it is one of the following (A and B principls, r1, r2, r3
+roles):
+
+    A.r1 <- B
+    A.r1 <- B.r2
+    A.r1 <- B.r2.r3
+
+When interacting with libabac, a credential is represented by an X509
+attribute certificates and the associated issuer X509 identity
+certificate.
+
+A principal is represented by the SHA1 hash of the public key of its
+identity certificate. Therefore when a credential is encoded in an
+attribute certificate, it will look something along the lines of:
+
+    e65aace9237833ec775253cfde97f59a0af5bc3d.frobnicate <-
+        e93547826455a80d9488825a1d083ef6ef264107
+
+ROLE
+
+ABAC roles are the atomic units that form the head and tail of a
+credential. The head will always be a proper role, which is to say it
+takes form:
+
+    A.r1
+
+As seen in the CREDENTIAL section, the tail of a role can take one of
+three forms:
+
+    principal:      B
+    role:           B.r2
+    linking role:   B.r2.r3
+
+For more information about the different types of roles, refer to
+[Li03rt].
+
+CONTEXT
+
+An ABAC context object encapsulates a set of ABAC credentials and its
+associated proof graph. The context supports the following operations:
+
+    - load X509 identity certificate
+    - load X509 attribute certificate
+    - list all the credentials (attribute identity certificate pairs)
+    - query whether a principal has a given role
+    - duplicate context
+
+REFERENCES
+
+[Li03rt]
+    Li, N. and Mitchell, J. C. RT: A role-based trust-management
+    framework. In Proceedings of the Third DARPA Information
+    Survivability Conference and Exposition. IEEE Computer Society
+    Press, 201­212.
+
+http://groups.geni.net/geni/wiki/TIEDABACModel
+
+http://groups.geni.net/geni/wiki/TIEDABACDemo

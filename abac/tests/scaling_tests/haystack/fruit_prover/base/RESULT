@@ -1,0 +1,28 @@
+ 
+===good============ mary.what2eat <- navel orange
+YAP query succeed
+prover success!!
+credentials needed :
+ pMary.what2eat  <- pRalphs.fruitprice(P:[..2.00]) 
+ pRalphs.fruitprice(0.50)  <- 'navel orange' 
+ 
+===good============ mary.what2eat <- kiwi
+YAP query succeed
+prover success!!
+credentials needed :
+ pMary.what2eat  <- pRalphs.fruitprice(P:[..2.00]) 
+ pRalphs.fruitprice(1.50)  <- 'kiwi' 
+ 
+===bad============ bob.what2eat <- navel orange
+YAP query failed
+prover failed!!
+ 
+===good============ ralphs.fruitprice(1.50) <- apple
+YAP query succeed
+prover success!!
+credentials needed :
+ pRalphs.fruitprice(1.50)  <- 'apple' 
+ 
+===bad============ ralphs.fruitprice(1.50) <- green apple
+YAP query failed
+prover failed!!

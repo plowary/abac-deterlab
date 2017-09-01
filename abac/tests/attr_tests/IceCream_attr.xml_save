@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<signed-credential>
+    <credential xml:id="ref0">
+	<type>abac</type>
+	<serial/>
+	<owner_gid/>
+	<target_gid/>
+	<uuid/>
+	<expires>2023-08-06T22:44:31Z</expires>
+	<abac>
+	    <rt0>
+		<version>1.1</version>
+		<head>
+   <ABACprincipal><keyid>5a151e1744670b010bfb468105e1dae4f21d9ae6</keyid></ABACprincipal>
+   <role>delicious</role>
+</head>
+<tail>
+   <ABACprincipal><keyid>0d103a09f360b9d59ba7fb0e747cc7da7afcfaa3</keyid></ABACprincipal>
+</tail>
+
+	    </rt0>
+	</abac>
+    </credential>
+    <signatures>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+	    <SignedInfo>
+		<CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+		<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+		<Reference URI="#ref0">
+		    <Transforms>
+			<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+		    </Transforms>
+		    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+		    <DigestValue>oO4CVI6RUj4yf9xnFR4HzOv1HPU=</DigestValue>
+		</Reference>
+	    </SignedInfo>
+	    <SignatureValue>rXQtxrGBBs2J7rJX3ovPKMzg5gE+dW00rx3pHxWwnUnZ+fBs2HmUXSCnX9jAH+6N
+omG6QtdV65cd+PNGFRihLUWIcuY/clFxfYJH3xa8tM02B/tNyBR6A+PxlD7LFNxV
+V8ryf8bQlhA95tOQdI70cVtbVHG9N0Jc6M6l5i0+WPbcxpC1IMqZO9diC43e88y/
+XBm7L3R9wFaHMmBywpa8BPb9ULVYebNRjY5S+zAATJup2SDmKSv5igErEdyAXBEt
+KBpZlIQ9AFJdPY2a2W/8WVy/T/WfWQqTH5DV3XxF/OVbyL3IvoW2yx+Cqfn1zjs8
+P2HKQdApPR5Zc6nXqtbSlA==</SignatureValue>
+	    <KeyInfo>
+	      <KeyValue>
+<RSAKeyValue>
+<Modulus>
+tOB2NTMT2HFxopbjPooHlbLrTrVxwICHM5ubx/cuYG/e8yzkBtA+zVQoqDug3jlN
+I8WlcVOgpDH4Th799zp1x3qVtlhuhswndgf04d8QIZOw0GBlLvUwhWuao0OCJXIg
+HmpsyxZJyvKfgkW+Pj13loc6f6ExNhmwWmXvUfOxoezoOFQb5gax6F0s4FDtyCuB
+dH0fGzGdXqEnNWyuM605Vt7WSzHwAkOZKkZdiK4UTBwgMHUUxWRTitoIUbIWEyqK
+DX7ag9L/MGQ11Kr60IoFXPXiglq0kgyyIt1nr+IH1SxR2RXf54bcAwgywz0bC+Wq
+Awj6ApvofPPkKuEhZiou2Q==
+</Modulus>
+<Exponent>
+AQAB
+</Exponent>
+</RSAKeyValue>
+</KeyValue>
+		<X509Data>
+		    
+		    
+		    
+		<X509Certificate>MIIDDDCCAfSgAwIBAgIJAO71IwftHrj6MA0GCSqGSIb3DQEBBQUAMBMxETAPBgNV
+BAMTCEljZUNyZWFtMB4XDTEzMDgwODIyNDQzMFoXDTE2MDcyMzIyNDQzMFowEzER
+MA8GA1UEAxMISWNlQ3JlYW0wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+AQC04HY1MxPYcXGiluM+igeVsutOtXHAgIczm5vH9y5gb97zLOQG0D7NVCioO6De
+OU0jxaVxU6CkMfhOHv33OnXHepW2WG6GzCd2B/Th3xAhk7DQYGUu9TCFa5qjQ4Il
+ciAeamzLFknK8p+CRb4+PXeWhzp/oTE2GbBaZe9R87Gh7Og4VBvmBrHoXSzgUO3I
+K4F0fR8bMZ1eoSc1bK4zrTlW3tZLMfACQ5kqRl2IrhRMHCAwdRTFZFOK2ghRshYT
+KooNftqD0v8wZDXUqvrQigVc9eKCWrSSDLIi3Wev4gfVLFHZFd/nhtwDCDLDPRsL
+5aoDCPoCm+h88+Qq4SFmKi7ZAgMBAAGjYzBhMA8GA1UdEwEB/wQFMAMBAf8wDgYD
+VR0PAQH/BAQDAgEGMB0GA1UdDgQWBBRaFR4XRGcLAQv7RoEF4drk8h2a5jAfBgNV
+HSMEGDAWgBRaFR4XRGcLAQv7RoEF4drk8h2a5jANBgkqhkiG9w0BAQUFAAOCAQEA
+U6YUSG1c4p0F6Za/P1U3px7+P3zu+RspaHK91tlLo1i3KVSC1mHhB90lvj4B8dM/
+Lo/kspcVt10t07WXL1Px0fW1LOguz2aI1+3xKGPkhjql01V0hAhaCS2GFpWkGfc+
+7uuxHyxzzoNtcrVYbD4ByDrz/eXn7sRj/WAMZKX8hQ2LiTPgXJ16AR3iPS9ocpPS
+FnR8zqWzd/V825Q4nmi/5iVegdhYAKrNrISA+N33pCsMSYfqBauEEUPfXYNHvsWA
+gueLDZ8/ONhaUKElAHlU3dI/hA01uS23TitFhhHO/lSOfRbmCxgatjVGWRt53DP6
+0FhgqjQ+8oTJ73taTaSz3A==</X509Certificate>
+<X509SubjectName>CN=IceCream</X509SubjectName>
+<X509IssuerSerial>
+<X509IssuerName>CN=IceCream</X509IssuerName>
+<X509SerialNumber>17218707267270916346</X509SerialNumber>
+</X509IssuerSerial>
+</X509Data>
+	    </KeyInfo>
+	</Signature>
+    </signatures>
+</signed-credential>

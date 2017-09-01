@@ -1,0 +1,111 @@
+#!/usr/bin/env sh
+#
+#  This demonstrates scalability of libabac.
+#       10 principal/attribute credentials with couple 
+#          of linked roles attributes are added, 
+#       2 sets of #VAL# attribute credentials along 
+#           with #VAL# different principal ids are added.
+# number of credentials, 9 + 4 x #VAL#
+# 
+
+rm -rf *.pem *.xml
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../../../..
+fi
+. ${TESTDIR}/test_util.sh
+
+$eloc/creddy --generate --cn District
+$eloc/creddy --generate --cn Huntington
+$eloc/creddy --generate --cn Alice
+$eloc/creddy --generate --cn Ralphs
+
+$eloc/creddy --generate --cn Apple
+$eloc/creddy --generate --cn Orange
+$eloc/creddy --generate --cn Banana
+$eloc/creddy --generate --cn Computer
+
+# [keyid:District].role:buys 
+#               <- [keyid:District].role:employee.role:buys
+$eloc/creddy --attribute \
+       --issuer District_ID.pem --key District_private.pem --role "buys" \
+       --subject-cert District_ID.pem --subject-role employee.buys \
+       --out district_buys__district_employee_buys_attr.xml
+
+# [keyid:District].role:employee 
+#               <- [keyid:District].role:school.role:admin
+$eloc/creddy --attribute \
+       --issuer District_ID.pem --key District_private.pem --role "employee" \
+       --subject-cert District_ID.pem --subject-role school.admin \
+       --out district_employee__district_school_admin_attr.xml
+
+# [keyid:District].role:school <- [keyid:Huntington]
+$eloc/creddy --attribute \
+       --issuer District_ID.pem --key District_private.pem --role "school" \
+       --subject-cert Huntington_ID.pem \
+       --out district_school__huntington_attr.xml
+
+# [keyid:Huntington].role:admin <- [keyid:Alice]
+$eloc/creddy --attribute \
+       --issuer Huntington_ID.pem --key Huntington_private.pem --role "admin" \
+       --subject-cert Alice_ID.pem \
+       --out huntington_admin__alice_attr.xml
+
+# [keyid:Alice].role:buys <- [keyid:Apple]
+$eloc/creddy --attribute \
+       --issuer Alice_ID.pem --key Alice_private.pem --role "buys" \
+       --subject-cert Apple_ID.pem \
+       --out alice_buys__apple_attr.xml
+
+# [keyid:Alice].role:buys <- [keyid:Orange]
+$eloc/creddy --attribute \
+       --issuer Alice_ID.pem --key Alice_private.pem --role "buys" \
+       --subject-cert Orange_ID.pem \
+       --out alice_buys__orange_attr.xml
+
+# [keyid:Alice].role:buys <- [keyid:Banana]
+$eloc/creddy --attribute \
+       --issuer Alice_ID.pem --key Alice_private.pem --role "buys" \
+       --subject-cert Banana_ID.pem \
+       --out alice_buys__banana_attr.xml
+
+
+# [keyid:Ralphs].role:order 
+#               <- [keyid:Ralphs].role:eduPartner.role:buys
+$eloc/creddy --attribute \
+       --issuer Ralphs_ID.pem --key Ralphs_private.pem --role "order" \
+       --subject-cert Ralphs_ID.pem --subject-role "eduPartner.buys" \
+       --out ralphs_order__ralphs_eduPartner_buys_attr.xml
+
+# [keyid:Ralphs].role:eduPartner <- [keyid:District]
+$eloc/creddy --attribute \
+       --issuer Ralphs_ID.pem --key Ralphs_private.pem --role "eduPartner" \
+       --subject-cert District_ID.pem \
+       --out ralphs_eduPartner__district_attr.xml
+
+
+############### NOISE #######################################
+# [keyid:Ralphs].role:eduPartner  <- [keyid:DistrictX]
+for i in $(seq 1 #VAL#);
+do
+  district="District$i"
+  $eloc/creddy --generate --cn $district 
+  fstr="ralphs_eduPartner__${district}_attr.xml"
+  $eloc/creddy --attribute \
+        --issuer Ralphs_ID.pem --key Ralphs_private.pem \
+        --role "eduPartner" \
+        --subject-cert ${district}_ID.pem \
+        --out $fstr
+done
+
+# [keyid:Huntington].role:admin  <- [keyid:BobX]
+for i in $(seq 1 #VAL#);
+do
+  bob="Bob$i"
+  $eloc/creddy --generate --cn $bob 
+  fstr="huntington_admin__${bob}_attr.xml"
+  $eloc/creddy --attribute \
+        --issuer Huntington_ID.pem --key Huntington_private.pem \
+        --role "admin" \
+        --subject-cert ${bob}_ID.pem \
+        --out $fstr
+done

@@ -1,0 +1,49 @@
+
+# number of credentials, 3 + 6 + 3 x #VAL#
+
+# fruits_rt2_typed
+
+keyloc=`pwd`
+eloc=`which abac_prover_yap | sed 's/\/abac_prover_yap//'`
+if [ "$eloc" = "" ]; then
+  echo "ERROR: abac_prover_yap is not in the search path!!!"
+  exit 1
+fi
+
+ralphs=`creddy --keyid --cert $keyloc/Ralphs_ID.pem`
+bob=`creddy --keyid --cert $keyloc/Bob_ID.pem`
+mary=`creddy --keyid --cert $keyloc/Mary_ID.pem`
+
+mary_what2eat="[keyid:$mary].oset:what2eat"
+bob_what2eat="[keyid:$bob].oset:what2eat"
+ralphs_apple="[keyid:$ralphs].oset:fruitprice([float:1.50])"
+
+## dump all credentials
+$eloc/abac_prover_yap  --keystore $keyloc --dump creds_dump
+
+# [keyid:mary].oset:what2eat <-?- [string:'navel orange'] (yes)
+echo " "
+echo "===good============ mary.what2eat <- navel orange"
+$eloc/abac_prover_yap  --keystore $keyloc --oset "$mary_what2eat" --object "[string:'navel orange']"
+
+# [keyid:mary].oset:what2eat <-?- [string:'kiwi'] (yes)
+echo " "
+echo "===good============ mary.what2eat <- kiwi"
+$eloc/abac_prover_yap  --keystore $keyloc --oset "$mary_what2eat" --object "[string:'kiwi']"
+
+# [keyid:bob].oset:what2eat <-?- [string:'navel orange'] (no)
+echo " "
+echo "===bad============ bob.what2eat <- navel orange"
+$eloc/abac_prover_yap  --keystore $keyloc --oset "$bob_what2eat" --object "[string:'navel orange']"
+
+# [keyid:$ralphs].oset:fruitprice([float:1.50]) <-?- [string:'apple'] (yes)
+echo " "
+echo "===good============ ralphs.fruitprice(1.50) <- apple"
+$eloc/abac_prover_yap  --keystore $keyloc --oset "$ralphs_apple" --object "[string:'apple']"
+
+# [keyid:$ralphs].oset:fruitprice([float:1.50]) <-?- [string:'green apple'] (no)
+echo " "
+echo "===bad============ ralphs.fruitprice(1.50) <- green apple"
+$eloc/abac_prover_yap  --keystore $keyloc --oset "$ralphs_apple" --object "[string:'green apple']"
+
+

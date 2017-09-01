@@ -1,0 +1,22 @@
+#####################################################################
+# This example demonstrates various ways to create and access
+# ID attribute using libabac api
+# and use query to show that it is indeed in the db  
+
+case 1: make attribute rule
+        writing attribute cert file
+        load attribute cert
+
+case 2: make attribute rule
+        load attribute
+
+case 3: make attribute rule  -- not in RT0
+        retrieve attribute cert chunk
+        make new attribute with cert chunk
+        load new attribute
+
+case 4: make attribute rule
+        retrieve attribute cert chunk
+        load attribute cert chunk directly into context
+
+

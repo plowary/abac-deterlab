@@ -1,0 +1,43 @@
+#!/usr/bin/env sh
+
+. ${TESTDIR}/test_util.sh
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+
+keyloc=`pwd`
+
+acme=`$eloc/creddy --keyid --cert $keyloc/Acme_ID.pem`
+batman=`$eloc/creddy --keyid --cert $keyloc/Batman_ID.pem`
+coyote=`$eloc/creddy --keyid --cert $keyloc/Coyote_ID.pem`
+
+buy_rockets="$acme.buy_rockets"
+coyote_prin="$coyote"
+batman_prin="$batman"
+bad_buy_rockets="$acme.bad_buy_rockets"
+bad_buy_rockets2="99$acme.buy_rockets"
+
+echo "===good============ Acme.buy_rockets <- Coyote"
+runTest creddy_prover_test/acme_rockets_intersection_rt0 test1 \
+  "$ploc/abac_prover --keystore $keyloc --role $buy_rockets --principal $coyote_prin" \
+  0 \
+  "simple rt0 query"
+
+echo "===bad============ Acme.bad_buy_rockets <- Coyote"
+runTest creddy_prover_test/acme_rockets_intersection_rt0 test2 \
+  "$ploc/abac_prover  --keystore $keyloc --role $bad_buy_rockets --principal $coyote_prin" \
+  1 \
+  "expected failure, query fail with unfound role but should return with partial proof"
+
+echo "===bad============ 99Acme.buy_rockets <- Coyote"
+runTest creddy_prover_test/acme_rockets_intersection_rt0 test3 \
+  "$ploc/abac_prover  --keystore $keyloc --role $bad_buy_rockets2 --principal $coyote_prin" \
+  1 \
+  "expected failure, query fail with none existing issuer principal"
+
+echo "===bad=============== Acme.buy_rockets <- Batman"
+runTest creddy_prover_test/acme_rockets_intersection_rt0 test4 \
+  "$ploc/abac_prover  --keystore $keyloc --role $buy_rockets --principal $batman_prin" \
+  1 \
+  "expected failure, query fail with none existing target principal"
+

@@ -1,0 +1,9 @@
+For Java installation instructions, see doc/java_install.
+
+BUILDING LIBABAC
+
+$ ./configure
+# ./configure --prefix=/usr for Ubuntu
+$ make 
+$ sudo make install
+

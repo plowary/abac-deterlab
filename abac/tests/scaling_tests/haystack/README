@@ -1,0 +1,7 @@
+
+   To demonstrate scalability of libabac, noise is introduced by 
+adding extraneous attribute and principal credentials.  Valid queries
+are made and the result is validated. 
+
+
+

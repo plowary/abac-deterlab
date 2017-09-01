@@ -1,0 +1,14 @@
+Role names in ABAC are allowed to contain the following sets of characters:
+
+    A-Z
+    a-z
+    0-9
+    -       [hyphen]
+    _       [underscore]
+
+A role name must begin with a letter or digit (A-z, a-z, 0-9).
+
+There is no limit on the length of a role name.
+
+As a technicality, creddy requires the CN to also meet these rules. Both ABAC
+and creddy will handle certificates with CNs that do not meet this criteria.

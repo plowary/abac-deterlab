@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+./abac_attr.pl --id IceCream_ID.pem --key IceCream_private.pem --id2 Chocolate_ID.pem --attr delicious_attr.xml
+
+
+

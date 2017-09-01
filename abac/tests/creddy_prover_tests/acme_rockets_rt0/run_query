@@ -1,0 +1,49 @@
+#!/usr/bin/env sh
+
+. ${TESTDIR}/test_util.sh
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+
+keyloc=`pwd`
+
+acme=`$eloc/creddy --keyid --cert $keyloc/Acme_ID.pem`
+coyote=`$eloc/creddy --keyid --cert $keyloc/Coyote_ID.pem`
+
+preferred_customer="$acme.preferred_customer"
+buy_rockets="$acme.buy_rockets"
+coyote_prin="$coyote"
+friend="$acme.friend"
+acme_prin="$acme"
+
+#[keyid:Acme].role:preferred_customer <-?- [keyid:Coyote]
+#isMember(pCoyote, role(pAcme,preferred_customer), C).
+echo "===good============ Acme.preferred_customer <- Coyote"
+runTest creddy_prover_test/acme_rockets_rt0 test1 \
+  "$ploc/abac_prover  --keystore $keyloc --role $preferred_customer --principal $coyote_prin" \
+  0 \
+  "simple rt0 query with 1 matched rule"
+
+#[keyid:Acme].role:buy_rockets <-?- [keyid:Coyote]
+#isMember(pCoyote, role(pAcme,buy_rockets), C).
+echo "===good=============== Acme.buy_rockets <- Coyote"
+runTest creddy_prover_test/acme_rockets_rt0 test2 \
+  "$ploc/abac_prover  --keystore $keyloc --role $buy_rockets --principal $coyote_prin" \
+  0 \
+  "rt0 query that returns 2 rules"
+
+## this is not suppose to work
+#[keyid:Acme].role:buy_rockets <-?- [keyid:Acme].role:preferred_customer
+echo "===bad=============== Acme.buy_rockets <- Acme.preferred_customer"
+runTest creddy_prover_test/acme_rockets_rt0 test3 \
+  "$ploc/abac_prover  --keystore $keyloc --role $buy_rockets --principal $preferred_customer" \
+  0 \
+  "this query is not suppose to work but alas did not block it, a.r1 <- b.r2"
+
+#[keyid:Coyote].role:friend <-?- [keyid:Acme]
+#isMember(pAcme, role(pCoyote,friend), C).
+echo "===bad=============== Coyote.friend <- Acme"
+runTest creddy_prover_test/acme_rockets_rt0 test4 \
+  "$ploc/abac_prover  --keystore $keyloc --role $friend --principal $acme_prin" \
+  1 \
+  "the assumption is not supported by rules "

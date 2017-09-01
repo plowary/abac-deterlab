@@ -1,0 +1,16 @@
+You can install Gradle using the distribution included here with these commands:
+- cd wrapper/dists
+- mkdir /opt/gradle
+- unzip -d /opt/gradle gradle-4.1-bin.zip
+- export PATH=$PATH:/opt/gradle/gradle-4.1/bin
+
+You can use a package manager to get the latest version:
+- SDK: sdk install gradle
+- Homebrew: brew update && brew install gradle
+- Scoop: scoop install gradle
+- Apt: at this time the version in Ubuntu repos is significantly out of date
+
+Or, if you have Internet access but don't have Gradle installed,
+you can use the included Gradle wrapper to run the tests.
+- Go to the main Java folder, then run ./gradlew tests
+- Use gradlew instead of gradle to run Gradle commands.

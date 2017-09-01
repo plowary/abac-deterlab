@@ -1,0 +1,62 @@
+For example your data file, force.dat , might look like:
+
+      # This file is called   force.dat
+      # Force-Deflection data for a beam and a bar
+      # Deflection    Col-Force       Beam-Force 
+      0.000              0              0    
+      0.001            104             51
+      0.002            202            101
+      0.003            298            148
+      0.0031           290            149
+      0.004            289            201
+      0.0041           291            209
+      0.005            310            250
+      0.010            311            260
+      0.020            280            240
+
+You can display your data by typing:
+
+      gnuplot>  plot  "force.dat" using 1:2 title 'Column', \
+                      "force.dat" using 1:3 title 'Beam'
+Customization of the axis ranges, axis labels, and plot title, as well as many other features, are specified using the set command. Specific examples of the set command follow. (The numerical values used in these examples are arbitrary.) To view your changes type: replot at the gnuplot> prompt at any time.
+
+      Create a title:                  > set title "Force-Deflection Data" 
+      Put a label on the x-axis:       > set xlabel "Deflection (meters)"
+      Put a label on the y-axis:       > set ylabel "Force (kN)"
+      Change the x-axis range:         > set xrange [0.001:0.005]
+      Change the y-axis range:         > set yrange [20:500]
+      Have Gnuplot determine ranges:   > set autoscale
+      Move the key:                    > set key 0.01,100
+      Delete the key:                  > unset key
+      Put a label on the plot:         > set label "yield point" at 0.003, 260 
+      Remove all labels:               > unset label
+      Plot using log-axes:             > set logscale
+      Plot using log-axes on y-axis:   > unset logscale; set logscale y 
+      Change the tic-marks:            > set xtics (0.002,0.004,0.006,0.008)
+      Return to the default tics:      > unset xtics; set xtics auto
+
+Other features which may be customized using the set command are: arrow, border, clip, contour, grid, mapping, polar, surf
+
+Sometimes, several commands are typed to create a particular plot, and it is easy to make a typographical error when entering a command. To stream- line your plotting operations, several Gnuplot commands may be combined into a single script file. For example, the following file will create a customized display of the force-deflection data:
+
+      # Gnuplot script file for plotting data in file "force.dat"
+      # This file is called   force.p
+      set   autoscale                        # scale axes automatically
+      unset log                              # remove any log-scaling
+      unset label                            # remove any previous labels
+      set xtic auto                          # set xtics automatically
+      set ytic auto                          # set ytics automatically
+      set title "Force Deflection Data for a Beam and a Column"
+      set xlabel "Deflection (meters)"
+      set ylabel "Force (kN)"
+      set key 0.01,100
+      set label "Yield Point" at 0.003,260
+      set arrow from 0.0028,250 to 0.003,280
+      set xr [0.0:0.022]
+      set yr [0:325]
+      plot    "force.dat" using 1:2 title 'Column' with linespoints , \
+            "force.dat" using 1:3 title 'Beam' with points
+
+Then the total plot can be generated with the command: gnuplot> load 'force.p'
+
+

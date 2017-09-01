@@ -1,0 +1,19 @@
+#!/usr/bin/env sh
+
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+. ${TESTDIR}/test_util.sh
+
+keystore=`pwd`
+pID=`$eloc/creddy --keyid --cert ${keystore}/IceCream_ID.pem`
+cID=`$eloc/creddy --keyid --cert ${keystore}/Chocolate_ID.pem`
+
+role="${pID}.delicious"
+principal="${cID}"
+
+#    echo "$keystore" "$role" "$principal"
+#    gdb ./abac_prover
+
+./abac_prover "$keystore" "$role" "$principal"
+

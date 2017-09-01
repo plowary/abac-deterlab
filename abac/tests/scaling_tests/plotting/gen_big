@@ -1,0 +1,44 @@
+#!/bin/sh 
+
+SET=$1
+filename=${SET}_orig
+if [ ! -e $filename ] ; then
+    exit
+fi
+
+## generate the plot script
+make_script() {
+cat <<FIN > $DATA.p
+set title "$TITLE"
+set terminal jpeg medium size 640,480
+set output "$DATA.jpeg"
+set   autoscale    
+unset log
+unset label                            
+set xtic auto                         
+set ytic auto                          
+set xlabel "Number of Credentials"
+set ylabel "$TYPE time ($TIME)"
+set xr [0:*]
+set yr [0:*]
+plot '$DATA1.dat' using $X:$Y title '$DATA1' with linespoints lt 8, \\
+'$DATA2.dat' using $X:$Y title '$DATA2' with linespoints lt 3, \\
+'$DATA3.dat' using $X:$Y title '$DATA3' with linespoints lt 1, \\
+'$DATA4.dat' using $X:$Y title '$DATA4' with linespoints lt 2
+FIN
+}
+
+X=1
+Y=2
+### 
+TYPE='Query Time'
+TITLE='Various Query Time'
+DATA=${SET}_query
+DATA1=${SET}_mgood
+DATA2=${SET}_good1
+DATA3=${SET}_mbad
+DATA4=${SET}_bad1
+TIME='microsec'
+make_script
+gnuplot $DATA.p
+

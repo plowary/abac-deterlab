@@ -1,0 +1,29 @@
+#!/bin/sh 
+
+
+noise=$1
+
+if [ -z "$noise" ]; then
+    exit
+fi 
+
+echo "---running haystack fruit_prover $noise scaling"
+
+rm -rf fruit_$noise
+mkdir fruit_$noise
+
+sed "s/#VAL#/$noise/" base/README > fruit_$noise/README
+sed "s/#VAL#/$noise/" base/QUERY > fruit_$noise/run_query
+cp base/RESULT fruit_$noise/fruit.save
+cd fruit_$noise
+chmod +x README run_query
+./README 1>/dev/null 2>&1
+time env ABAC_CN=1 ./run_query 1>fruit.tmp 2> fruit.time
+result=`diff fruit.tmp fruit.save 2>/dev/null`
+if [ "$result" = "" ]; then
+   echo "   PASSED"
+else   
+   echo "   ERROR"
+fi
+
+

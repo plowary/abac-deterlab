@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+# number of credentials, 9 + 4 x #VAL#
+
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../../../..
+fi
+. ${TESTDIR}/test_util.sh
+keyloc=`pwd`
+
+ralphs=`$eloc/creddy --keyid --cert $keyloc/Ralphs_ID.pem`
+apple=`$eloc/creddy --keyid --cert $keyloc/Apple_ID.pem`
+computer=`$eloc/creddy --keyid --cert $keyloc/Computer_ID.pem`
+Alice=`$eloc/creddy --keyid --cert $keyloc/Alice_ID.pem`
+
+
+# [keyid:ralphs].role:order <-?- [keyid:apple] (yes)
+# [keyid:ralphs].role:order <-?- [keyid:computer] (no)
+
+ralphs_order="$ralphs.order"
+apple_prin="$apple"
+computer_prin="$computer"
+
+`$ploc/abac_prover  --keystore $keyloc --dump dump.file`
+
+
+echo "===good=============== Ralphs.order <- Apple"
+runTest scaling_tests/haystack/ralphs_prover test1 \
+"$ploc/abac_prover  --keystore $keyloc --role $ralphs_order --principal $apple_prin" \
+0 \
+"simple good query"
+
+echo "===bad=============== Ralphs.order <- Computer"
+runTest scaling_tests/haystack/ralphs_prover test1 \
+"$ploc/abac_prover  --keystore $keyloc --role $ralphs_order --principal $computer_prin" \
+1 \
+"simple bad query"
+

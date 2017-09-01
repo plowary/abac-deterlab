@@ -1,0 +1,47 @@
+#
+#Acme runs a testbed. They've delegated the authority to create
+#experiments to all their partners. The Globotron company is one such
+#partner.
+#
+#    Acme.experiment_create <- Acme.partner.experiment_create
+#
+#Globotron has delegated the authority to anyone an admin thinks is a
+#'power user'.
+#
+#    Globotron.experiment_create <- Globotron.admin.power_user
+#
+#and, Globotron is a partner of Acme
+#
+#    Acme.partner <- Globotron
+#
+#Alice is an admin, and her friend Bob is a power user:
+#
+#    Globotron.admin <- Alice
+#    Alice.power_user <- Bob
+#
+#From these credentials, it is possible to show that 
+#    Acme.experiment_create <- Bob.
+#
+#In query.py, it checks if Alice is a admin of Globotron which is true;
+#and if Bob is an admin of Globotron which is not true; and also show
+#that Bob can create experiment at Acme
+#
+# experiment_create_rt0 
+
+# Credential 1
+#[keyid:Acme].role:experiment_create 
+#                 <- [keyid:Acme].role:partner.role:experiment_create
+
+# Credential 2
+#[keyid:Acme].role:partner <- [keyid:Globotron]
+
+# Credential 3
+#[keyid:Globotron].role:expriment_create 
+                 <- [keyid:Globotron].role:admin.role:power_user
+
+# Credential 4
+#[keyid:Globotron].role:admin <- [keyid:Alice]
+
+# Credential 5
+#[keyid:Alice].role:power_user <- [keyid:Bob]
+

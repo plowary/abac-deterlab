@@ -1,0 +1,54 @@
+#!/usr/bin/env sh
+
+noise=$1
+
+if [ -z "$noise" ]; then
+    exit
+fi 
+
+echo "---running daisychain likes_python $noise scaling"
+
+rm -rf likes_$noise
+mkdir likes_$noise
+sed "s/#VAL#/$noise/" base/SETUP.py > likes_$noise/setup.py
+sed "s/#VAL#/$noise/" base/QUERY.py > likes_$noise/query.py
+sed "s/#VAL#/$noise/" base/ATTR.py > likes_$noise/attr.py
+sed "s/#VAL#/$noise/" base/PROVE.sh > likes_$noise/prove.sh
+
+cd likes_$noise
+chmod +x setup.py attr.py query.py
+./setup.py 1> /dev/null 2>&1
+env keystore=`pwd` ./attr.py 1> attr.log 2>& 1
+
+# MY_ENV is an env command that sets the environment up so (among other things)
+# query can find the test_util module.  MY_ENV is set in the testing makefile
+# and abac.mk
+$MY_ENV keystore=`pwd` ABAC_CN=1 ./query.py 1>likes.tmp 2> likes.time
+
+if [ $noise -eq 0 ] ; then
+    result=`egrep -c "GOOD" likes.tmp 2>/dev/null`
+    if [ $result -eq 202 ]; then
+       echo "GOOD:scaling_tests/daisychain/likes_python:$noise:query result matched"
+## zap out all those fake BADs
+       sed -ibak 's/BAD_/fakebad_/g' likes.time
+       exit 0
+    else  
+       echo "BAD:scaling_tests/daisychain/likes_python:$noise:number of successful query is not right"
+       exit 1
+    fi
+fi
+
+s=`grep -c "success" likes.tmp 2>/dev/null`
+f=`grep -c "failure" likes.tmp 2>/dev/null `
+if [ $s -ne 101 ] ; then
+    echo "BAD:scaling_tests/daisychain/likes_python:$noise:number of success is not right"
+    exit 1
+fi
+
+if [ $f  -ne 101 ] ; then
+    echo "BAD:scaling_tests/daisychain/likes_python:$noise:number of expeceted failure is not right"
+    exit 1
+fi
+
+echo "GOOD:scaling_tests/daisychain/likes_python:$noise:expected result"
+

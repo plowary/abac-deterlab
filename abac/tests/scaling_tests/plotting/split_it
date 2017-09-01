@@ -1,0 +1,26 @@
+#!/bin/sh 
+
+# either fruit_orig or likes_orig
+type=$1
+
+filename=${type}_orig
+
+if [ -e $filename ]; then
+  rm -rf ${type}_load.jpeg ${type}_load.dat
+  rm -rf ${type}_good1.jpeg ${type}_good1.dat
+  rm -rf ${type}_bad1.jpeg ${type}_bad1.dat
+  rm -rf ${type}_mgood.jpeg ${type}_mgood.dat
+  rm -rf ${type}_mbad.jpeg ${type}_mbad.dat
+
+  grep "GOOD_t" $filename | sort -n  > ${type}_mgood.dat
+  grep "GOOD_f" $filename | sort -n > ${type}_good1.dat
+  grep "BAD_t" $filename | sort -n > ${type}_mbad.dat
+  grep "BAD_f" $filename | sort -n > ${type}_bad1.dat
+  grep "LOAD" $filename | sort -n > ${type}_load.dat
+
+fi
+
+
+
+
+

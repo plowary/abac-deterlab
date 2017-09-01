@@ -1,0 +1,100 @@
+
+= 0.2.0 =
+
+    2017-08-31
+        * Updated files for creddy's attribute tests in attr_tests and creddy_tests
+		* Fixed and modernized java abac api
+		 - Gradle build script and tasks to replace Ant
+		 - Latest version of BouncyCastle (1.58 at this time)
+		 - Scripted certificate generation and xml signing for regression tests
+		 - Other minor updates to documentation
+
+...
+
+= 0.1.6 =
+
+    2013-10-04
+        * Harden with leak check with Valgrind
+        * Harden with porting to Cento5/Cento6
+          (Note, to work around a known Cento6 problem with
+           xmlsec1-1.2.16-2.el6.x86_64.rpm, 
+           https://bugzilla.redhat.com/show_bug.cgi?id=662306,
+           either compile libabac with -DXMLSEC_NO_SIZE_T or
+           use the ABAC rpm for Cento6, details in doc/dependencies)
+        * Added a new api call: abac_context_load_id_id
+        * Added a scaling_tests/haystack example
+        * Fixed several bugs related to building on Mac OS X
+          (Victor J. Orlikowski)
+        * Updated regression tests with longer-lasting credential 
+          examples
+  
+= 0.1.5 =
+
+    2013-07-17
+        * Support for human readable strings in credential printing. 
+          User can associate nicknames with principals and selectively
+          have the mnemonic names used instead of the SHA1 hash of
+          principl when outputting
+        * New attribute credential format output, supports
+          version 1.1 of GENI credential format
+        * Accepts version 1.0 & 1.1  GENI credential formats in addition
+          to original ABAC RT0 and GENI privilege attribute formats
+        * Simplified input of self-contained credentials. For a 
+          self-contained credential like GNEI credential, there is no
+          need for an explicit loading of issuer ID anymore and the
+          issuer credential is automatically loaded into context if 
+          needed
+        * Replaced the restrictive abac_context_load_directory search
+          into: any regular files in the keystore location is checked.
+          Attempt to extract credentials follows this order,
+          first, try extraction as principal credential, if found, 
+          check for private key, or else try to retrieve as attribute
+          credential
+        * Moved hashed principal credentials from global scope to
+          context based list of principal credentials
+        * examples are renamed into tests and reorganized under
+          libabac's autoconf/automake setup and more information is 
+          generated when run
+
+= 0.1.4 =
+
+    2013-05-20
+
+        * revamped libabac's native Java interface and regression 
+          tests are now included
+        * removed libabac's dependency on libstrongswan 
+          for credential manipulation
+        * implemented a set of routines using openssl API
+          to make and access libabac's X.509 identity credentials
+        * implemented a set of routines using xmlsec1 API to make
+          and access libabac's attribute credentials in XML 
+        * libcreddy's ID and Attribute classes refactored into 
+          libabac and removed
+        * creddy rewritten to use libabac
+        * expanded examples to include scripts in python/perl/java 
+          and additional regression tests in python
+
+= 0.1.3 =
+
+     2011-03-30
+
+        * native Java support
+        * many, many bugfixes
+
+= 0.1.2 =
+
+     2010-10-01
+
+        * libcreddy extracted
+        * credddy rewritten to use libcreddy
+        * sample code for libcreddy in python
+
+= 0.1.1 =
+
+     2010-09-17, updated 2010-09-20
+
+        * Support for intersection rules
+        * Support for encrypted private keys
+        * Build issues on FreeBSD addressed
+
+

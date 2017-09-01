@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<signed-credential>
+    <credential xml:id="ref0">
+	<type>abac</type>
+	<version>1.0</version>
+	<expires>2034-06-01T18:55:30Z</expires>
+	<rt0>268212ecefaabd0e047c904edb2e31111ccee285.delicious&lt;-eb6977b27fb6a765ae7b3cabe26f3da89cc34395</rt0>
+    </credential>
+    <signatures>
+	<Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+	    <SignedInfo>
+		<CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+		<SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+		<Reference URI="#ref0">
+		    <Transforms>
+			<Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+		    </Transforms>
+		    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+		    <DigestValue>fNA0Yxk+InLyrtIQ2ZLOQjvTsaU=</DigestValue>
+		</Reference>
+	    </SignedInfo>
+	    <SignatureValue>ZiR4DB138ZVNrXsig6cLav3M11+MHS0flHdBU+7WXmsrJfpK3KNqd1sw1MSBXcY2
+PPXlMRqCOUje2Kt460Wb9+7H6C+FBlgaD2Kd7gQ95xPo9PtqZmc25k8tBMvzRGrT
+YFQwNKmqDOPYs/EFKh8ikS4o13hWTBr+6P86p8vfaBZWqZzpqayaCg/5MBbaylgM
+wNB+50S/gboDF/oABVjzzebHLA7RDzQga9k4uqdJlRi7jYLqBE3uKFPOi5KKRrr0
+93yRQUKmlb5SM1J3kNAI6+EkDuJLSv66GvGc0orG0oM5TzqLidAlYWBs8AJHiBwt
+dPOeYBjmhHDESbVOgQx2Ag==</SignatureValue>
+	    <KeyInfo>
+	      <KeyValue>
+<RSAKeyValue>
+<Modulus>
+z82R4/YeZGNt4H6XEKjqMd2rs2vL4RpW5yFzBMMyC8NiyqICwHhlLVLTbk/5EOb7
+IjyWfZ+CsbWnf7uo9gStSPA1NKZ5/HbyhzTCre7MexBV+TnVGcwSGmWrEq8+diIE
+lkbzYrdwmevhHKtzuQCeuX6/B1iR7+3diqdB2RDhVKHGgecZtNnS+ILASruC4pJN
+azu1E7DQ9HQh6N6+d8M/d0uJGHkxkc9sieElGW+/EHu+0cjZij7WvCPf5xhnN90Q
+MH0thRJZiZjKHgXhZ/S0lrf5ks8ejZNVMpNNOF6zCfaaYMTnwD4QEsA/xC5MC5Tw
+zZkvslDk48aJFHlfiWBCnw==
+</Modulus>
+<Exponent>
+AQAB
+</Exponent>
+</RSAKeyValue>
+</KeyValue>
+		<X509Data>
+		    
+		    
+		    
+		<X509Certificate>MIIC/jCCAeagAwIBAgIJAO6mxkGQGcfIMA0GCSqGSIb3DQEBBQUAMAwxCjAIBgNV
+BAMTAVAwHhcNMTQwNjA2MTg1MTEyWhcNMzQwNjAxMTg1MTEyWjAMMQowCAYDVQQD
+EwFQMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAz82R4/YeZGNt4H6X
+EKjqMd2rs2vL4RpW5yFzBMMyC8NiyqICwHhlLVLTbk/5EOb7IjyWfZ+CsbWnf7uo
+9gStSPA1NKZ5/HbyhzTCre7MexBV+TnVGcwSGmWrEq8+diIElkbzYrdwmevhHKtz
+uQCeuX6/B1iR7+3diqdB2RDhVKHGgecZtNnS+ILASruC4pJNazu1E7DQ9HQh6N6+
+d8M/d0uJGHkxkc9sieElGW+/EHu+0cjZij7WvCPf5xhnN90QMH0thRJZiZjKHgXh
+Z/S0lrf5ks8ejZNVMpNNOF6zCfaaYMTnwD4QEsA/xC5MC5TwzZkvslDk48aJFHlf
+iWBCnwIDAQABo2MwYTAPBgNVHRMBAf8EBTADAQH/MA4GA1UdDwEB/wQEAwIBBjAd
+BgNVHQ4EFgQUJoIS7O+qvQ4EfJBO2y4xERzO4oUwHwYDVR0jBBgwFoAUJoIS7O+q
+vQ4EfJBO2y4xERzO4oUwDQYJKoZIhvcNAQEFBQADggEBAEn1WDgiqlkn1LSWv8po
+1A0u6WPnpsG32m07euyCIuUV7NBWed6fX4VaNlrUiXdCYF5RYh/S0oOpQvOAYKRC
+HSKVrcPlcFQS7f0wFj3iSsoBPBuUfTwyjYICaeXJN0mOruJ/zod/U5lCfqmzviRX
+eyP3W0q74hm8c9yMDo6SdE7fMeufNiZ2s08jLIRAiEkyDU1b/g/jvnqIESHC3dZz
+XGrYiruYD2lWhv1BSceDk8o81IaSQ3HvPGDXzBsWeOotGwiVCVZDwydovM+7ht5h
+Y01DCjmBy2D0AgOK3lAri6mcBuVJAFrj3QHxfjL02QTbildAUK2AXEvzr9UWIItP
+K0c=</X509Certificate>
+<X509SubjectName>CN=P</X509SubjectName>
+<X509IssuerSerial>
+<X509IssuerName>CN=P</X509IssuerName>
+<X509SerialNumber>17196650212053600200</X509SerialNumber>
+</X509IssuerSerial>
+</X509Data>
+	    </KeyInfo>
+	</Signature>
+    </signatures>
+</signed-credential>

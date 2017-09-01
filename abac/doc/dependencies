@@ -1,0 +1,102 @@
+All software packages can be installed via distribution package.
+
+swig-3.0.12
+    http://swig.org/
+	http://prdownloads.sourceforge.net/swig/swig-3.0.12.tar.gz
+
+Perl modules (via CPAN or distribution package)
+    IO::Socket::SSL
+    HTTP::Daemon::SSL
+    RPC::XML
+
+Python modules 
+    m2crypto
+
+
+BUILDING ON UBUNTU
+
+The following is a complete list of packages required in order to build from
+git on Ubuntu (tested on version 16.04):
+
+autoconf-archive
+automake
+g++
+git-core
+libtool
+python-dev
+swig
+libxmlsec1-dev
+---following packages for Java implementation---
+openjdk-8-jdk
+ant (only if not using Gradle)
+ant-optional (only if not using Gradle)
+
+BUILDING ON FREEBSD
+
+The following is a list of ports necessary to build from git on FreeBSD
+(tested on version 8.2, and 9.1):
+
+pkg-config
+xmlsec1
+openjdk6
+perl
+automake (might require newer perl/autoconf/etc)
+apache-ant
+swig
+
+BUILDING ON OS X (10.7)
+
+The xmlsec package can be obtained using MacPorts, and if installing 
+into non-standard location(/usr/local, /usr), please configure with 
+--with-xmlsec1=newlocation
+
+Similary, if prefer to install libabac's python code to a none default
+python location(for example, unpriviledge path), please configure or 
+install with --pythondir='newlocation' 
+
+
+BUILDING ON CENTO OS5 (i386)
+
+The following is a list of yummables necessary to build on Cento OS5
+
+java-1.6.0-openjdk
+xmlsec1-devel
+xmlsec1-openssl-devel
+
+
+BUILDING ON CENTO OS6 (x86_64)
+
+The following is a list of yummables necessary to build on Cento OS6
+
+java-1.6.0-openjdk
+libtool-ltdl
+libxslt
+libtool-ltdl-devel
+libxml2-devel
+libxslt-devel
+pkgconfig
+python-devel
+perl-devel
+perl-ExtUtils-Embed
+ant
+
+xmlsec1
+xmlsec1-devel
+xmlsec1-openssl
+xmlsec1-openssl-devel
+
+If xmlsec1 related rpms are used from EPEL, please beware that there is a
+bug in bundled xmlsec1-config that is used to bring in required cflags for
+including the xmlsec1 libraries. This problem is side-stepped if libabac rpm 
+is used.  Otherwise, if building ABAC by source is desired, either xmlsec1 
+(1.2.16) needs to be build from source or an compiler flag needs to be set
+via environment CFLAGS.
+
+A perl install path should also be specified on Cento OS6 to hold the libabac's 
+perl modules.  A complete configure command would be like this,
+
+env CFLAGS="-DXMLSEC_NO_SIZE_T" ./configure --with-site-perl=/usr/lib64/perl5/site_perl
+
+
+
+

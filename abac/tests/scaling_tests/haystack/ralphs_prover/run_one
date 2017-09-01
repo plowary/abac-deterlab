@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+noise=$1
+
+if [ -z "$noise" ]; then
+    exit
+fi 
+
+echo "---running haystack ralphs_prover $noise scaling"
+
+rm -rf ralphs_$noise
+mkdir ralphs_$noise
+
+sed "s/#VAL#/$noise/" base/README > ralphs_$noise/README
+sed "s/#VAL#/$noise/" base/QUERY > ralphs_$noise/run_query
+
+cd ralphs_$noise
+
+chmod +x README run_query
+./README 1>/dev/null 2>&1
+env ABAC_CN=1 ./run_query 1>ralphs.tmp 
+
+s=`grep -c "GOOD" ralphs.tmp 2>/dev/null`
+f=`grep -c "BAD" ralphs.tmp 2>/dev/null `
+
+if [ $s -ne 2 ] ; then
+    echo "BAD:scaling_tests/haystack/ralphs_prover:$noise:number of success is not right"
+    exit 1
+fi
+
+if [ $f -ne 0 ] ; then
+    echo "BAD:scaling_tests/haystack/ralphs_prover:$noise:there are unexpeced failure"
+    exit 1
+fi
+
+echo "GOOD:scaling_tests/haystack/ralphs_python:$noise:expected result"
+
+
+

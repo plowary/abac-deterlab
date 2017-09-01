@@ -1,0 +1,12 @@
+
+In this testing suite, different flavors of attribute xml is tried.
+
+privilege_attr.xml,  a valid self-signed priviledge GENI attribute credential 
+                     with multiple(6) attribute rules 
+
+abac_attr.xml,  a valid self-signed abac attribute credential with a single 
+                attribute rule
+
+not_ss.xml, a valid none self-signed abac attribute credential with a single
+            attribute rule
+

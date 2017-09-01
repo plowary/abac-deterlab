@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><signed-credential xmlns="http://www.w3.org/2000/09/xmldsig#"><credential xml:id="ref0"><type>privilege</type><serial>01</serial><owner_gid>MIIB8DCCAVmgAwIBAgIJAMSErddGGLENMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
+BAMMBmlzc3VlcjAeFw0xNzA5MDEwMDAxMTlaFw0yNzA4MzAwMDAxMTlaMBExDzAN
+BgNVBAMMBmlzc3VlcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAxawxxxLr
+0lLeEHa9StKm06NshGRaz0cg0NQWa04IVnJQhgGnx1ZtGlkmI4Mumdfjp3HDA9s5
++CsdpCnr8qYVM4UPlIwjoAzXgyQ6EGlOpc+nzgSeEeWjly+coMF7HPCRuABK0CRx
+6GcYUsh8vo7/WT2WuE/38DE7tWbmXGmo2tsCAwEAAaNQME4wHQYDVR0OBBYEFKpN
+iTOvshW8mBEr8Gw6kSwfFR4sMB8GA1UdIwQYMBaAFKpNiTOvshW8mBEr8Gw6kSwf
+FR4sMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADgYEAtkzaptu5M9/A2rX7
+zgMq1BCNT/eeZL9gUmvx+d1kwwRAt6IyvJljdAFKKC2uirk24gJhOzNQhbv3MJXm
+0IDya0AD+Pp3ukkvOVrvg/XivJb8W24Rn3RYcIb4m5YjIc0/ia2FufAFVdsTT/IG
+YiSEiolbT3JkNxRBu5ylxYnPUGU=
+</owner_gid><owner_urn>urn:publicid:IDN+plc:gpo:site2+user+jkarlin</owner_urn><target_gid>MIIB8DCCAVmgAwIBAgIJAMSErddGGLENMA0GCSqGSIb3DQEBCwUAMBExDzANBgNV
+BAMMBmlzc3VlcjAeFw0xNzA5MDEwMDAxMTlaFw0yNzA4MzAwMDAxMTlaMBExDzAN
+BgNVBAMMBmlzc3VlcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAxawxxxLr
+0lLeEHa9StKm06NshGRaz0cg0NQWa04IVnJQhgGnx1ZtGlkmI4Mumdfjp3HDA9s5
++CsdpCnr8qYVM4UPlIwjoAzXgyQ6EGlOpc+nzgSeEeWjly+coMF7HPCRuABK0CRx
+6GcYUsh8vo7/WT2WuE/38DE7tWbmXGmo2tsCAwEAAaNQME4wHQYDVR0OBBYEFKpN
+iTOvshW8mBEr8Gw6kSwfFR4sMB8GA1UdIwQYMBaAFKpNiTOvshW8mBEr8Gw6kSwf
+FR4sMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQELBQADgYEAtkzaptu5M9/A2rX7
+zgMq1BCNT/eeZL9gUmvx+d1kwwRAt6IyvJljdAFKKC2uirk24gJhOzNQhbv3MJXm
+0IDya0AD+Pp3ukkvOVrvg/XivJb8W24Rn3RYcIb4m5YjIc0/ia2FufAFVdsTT/IG
+YiSEiolbT3JkNxRBu5ylxYnPUGU=
+</target_gid><target_urn>urn:publicid:IDN+plc:gpo:site2+user+jkarlin</target_urn><uuid /><expires>2030-07-17T00:00:00Z</expires><privileges><privilege><name>refresh</name><can_delegate>false</can_delegate></privilege><privilege><name>test2</name><can_delegate>true</can_delegate></privilege></privileges></credential><signatures><Signature><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI="#ref0"><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue /></Reference></SignedInfo><SignatureValue /><KeyInfo><X509Data /></KeyInfo></Signature></signatures></signed-credential>

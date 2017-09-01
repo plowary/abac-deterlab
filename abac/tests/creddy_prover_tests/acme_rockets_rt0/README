@@ -1,0 +1,39 @@
+#!/usr/bin/env sh
+#
+# The example makes use of 2 principals, Acme and Coyote.
+#
+# This example shows a very simple delegation of roles by Acme.  Acme's
+# buy_rockets role includes all of Acme's preferred customers.  The example
+# creates the principals and 2 credentials.  Credential 1 encodes the policy
+# that all of Acme's preferred customers can buy rockets from Acme and
+# Credential 2 defines the Coyote as an Acme preferred customer.
+
+# The ./run_query script issues queries to show that the Coyote is both a preferred
+# customer and can buy rockets.  Two invalid queries are also made, checking if
+# Acme is the Coyote's friend, which it isn't and whether a query about
+# something other than a principal works (it doesn't).
+
+# acme_rockets_rt0
+
+#Acme.buy_rockets <- Acme.preferred_customer
+#Acme.preferred_customer <- Coyote
+
+rm -rf *.pem *.xml
+. ${TESTDIR}/test_util.sh
+if [ -z "${TESTDIR}" ] ; then
+    TESTDIR=../..
+fi
+
+$eloc/creddy --generate --cn Acme
+
+$eloc/creddy --generate --cn Coyote
+
+$eloc/creddy --attribute \
+       --issuer Acme_ID.pem --key Acme_private.pem --role buy_rockets \
+       --subject-cert Acme_ID.pem --subject-role preferred_customer \
+       --out Acme_buy_rockets__Acme_preferred_customer_attr.xml
+
+$eloc/creddy --attribute \
+       --issuer Acme_ID.pem --key Acme_private.pem --role preferred_customer \
+       --subject-cert Coyote_ID.pem \
+       --out Acme_preferred_customer__Coyote_attr.xml
