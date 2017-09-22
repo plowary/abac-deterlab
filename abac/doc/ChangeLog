@@ -1,5 +1,5 @@
 
-= 0.2.0 =
+= 0.2.0 = Bugfixes by Pierce Lowary at Stanford: plowary@stanford.edu
 
     2017-08-31
         * Updated files for creddy's attribute tests in attr_tests and creddy_tests
